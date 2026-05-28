@@ -1,0 +1,32 @@
+aid: punkapi
+name: PunkAPI
+description: "Brewdog Beer Recipes"
+url: https://punkapi.com/
+specificationVersion: '0.20'
+created: '2026-05-28'
+modified: '2026-05-28'
+x-source: public-apis/public-apis
+x-category: "Food & Drink"
+x-tier: 3
+x-tier-reason: bulk-registered-from-public-apis
+tags:
+  - Food And Drink
+  - Public APIs
+apis:
+  - name: PunkAPI
+    description: "Brewdog Beer Recipes"
+    humanURL: https://punkapi.com/
+    baseURL: https://punkapi.com/
+    tags:
+      - Food And Drink
+    properties:
+      - type: Documentation
+        url: https://punkapi.com/
+common:
+  - type: Website
+    url: https://punkapi.com/
+  - type: PublicAPIsListing
+    url: https://github.com/public-apis/public-apis
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
