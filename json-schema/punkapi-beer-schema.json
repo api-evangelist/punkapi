@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/punkapi/refs/heads/main/json-schema/punkapi-beer-schema.json",
+  "title": "Beer",
+  "description": "A BrewDog DIY Dog beer recipe — full crowdsourced recipe entry from the Punk API dataset.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "tagline",
+    "first_brewed",
+    "description",
+    "abv",
+    "volume",
+    "boil_volume",
+    "method",
+    "ingredients"
+  ],
+  "properties": {
+    "id": { "type": "integer", "description": "Unique recipe identifier (1-325).", "example": 1 },
+    "name": { "type": "string", "description": "Beer name.", "example": "Buzz" },
+    "tagline": { "type": "string", "description": "Short marketing tagline.", "example": "A Real Bitter Experience." },
+    "first_brewed": { "type": "string", "description": "First brewed date (mm/yyyy or yyyy).", "example": "09/2007" },
+    "description": { "type": "string", "description": "Free-text recipe description." },
+    "image_url": { "type": ["string", "null"], "format": "uri", "description": "Bottle image URL.", "example": "https://images.punkapi.com/v2/keg.png" },
+    "abv": { "type": "number", "description": "Alcohol by volume (%).", "example": 4.5 },
+    "ibu": { "type": ["number", "null"], "description": "International Bitterness Units.", "example": 60 },
+    "target_fg": { "type": ["number", "null"], "description": "Target final gravity.", "example": 1010 },
+    "target_og": { "type": ["number", "null"], "description": "Target original gravity.", "example": 1044 },
+    "ebc": { "type": ["number", "null"], "description": "European Brewery Convention colour.", "example": 20 },
+    "srm": { "type": ["number", "null"], "description": "Standard Reference Method colour.", "example": 10 },
+    "ph": { "type": ["number", "null"], "description": "Target wort pH.", "example": 4.4 },
+    "attenuation_level": { "type": ["number", "null"], "description": "Yeast attenuation level (%).", "example": 75 },
+    "volume": { "$ref": "#/$defs/Measurement" },
+    "boil_volume": { "$ref": "#/$defs/Measurement" },
+    "method": { "$ref": "#/$defs/Method" },
+    "ingredients": { "$ref": "#/$defs/Ingredients" },
+    "food_pairing": { "type": "array", "items": { "type": "string" }, "description": "Suggested food pairings." },
+    "brewers_tips": { "type": ["string", "null"], "description": "Brewer's tips for replication." },
+    "contributed_by": { "type": ["string", "null"], "description": "Recipe transcription attribution." }
+  },
+  "$defs": {
+    "Measurement": {
+      "type": "object",
+      "required": ["value", "unit"],
+      "properties": {
+        "value": { "type": "number" },
+        "unit": { "type": "string" }
+      }
+    },
+    "Temperature": {
+      "type": "object",
+      "required": ["value", "unit"],
+      "properties": {
+        "value": { "type": "number" },
+        "unit": { "type": "string", "example": "celsius" }
+      }
+    },
+    "MashStep": {
+      "type": "object",
+      "required": ["temp"],
+      "properties": {
+        "temp": { "$ref": "#/$defs/Temperature" },
+        "duration": { "type": ["integer", "null"] }
+      }
+    },
+    "Method": {
+      "type": "object",
+      "required": ["mash_temp", "fermentation"],
+      "properties": {
+        "mash_temp": { "type": "array", "items": { "$ref": "#/$defs/MashStep" } },
+        "fermentation": {
+          "type": "object",
+          "required": ["temp"],
+          "properties": { "temp": { "$ref": "#/$defs/Temperature" } }
+        },
+        "twist": { "type": ["string", "null"] }
+      }
+    },
+    "Malt": {
+      "type": "object",
+      "required": ["name", "amount"],
+      "properties": {
+        "name": { "type": "string" },
+        "amount": { "$ref": "#/$defs/Measurement" }
+      }
+    },
+    "Hop": {
+      "type": "object",
+      "required": ["name", "amount", "add", "attribute"],
+      "properties": {
+        "name": { "type": "string" },
+        "amount": { "$ref": "#/$defs/Measurement" },
+        "add": { "type": "string", "description": "When the hop is added (start, middle, end, dry hop)." },
+        "attribute": { "type": "string", "description": "Hop role (bitter, flavour, aroma)." }
+      }
+    },
+    "Ingredients": {
+      "type": "object",
+      "required": ["malt", "hops", "yeast"],
+      "properties": {
+        "malt": { "type": "array", "items": { "$ref": "#/$defs/Malt" } },
+        "hops": { "type": "array", "items": { "$ref": "#/$defs/Hop" } },
+        "yeast": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/punkapi/refs/heads/main/json-structure/punkapi-error-structure.json",
+  "name": "Error",
+  "description": "Punk API server error envelope returned for 4xx/5xx responses.",
+  "type": "object",
+  "required": ["statusCode", "message"],
+  "properties": {
+    "statusCode": { "type": "int32", "description": "HTTP status code." },
+    "error": { "type": "string", "description": "HTTP status text." },
+    "message": { "type": "string", "description": "Human-readable error message." }
+  }
+}

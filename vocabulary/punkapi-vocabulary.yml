@@ -1,0 +1,193 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Punk API"
+  description: "Unified vocabulary covering Punk API's read-only Beers REST surface (3 operations) and corresponding Naftiko capability surface, plus the brewing-domain ontology that backs the Beer entity."
+  created: "2026-05-29"
+  modified: "2026-05-29"
+
+operational:
+  apis:
+    - name: "Punk API"
+      namespace: "punkapi"
+      version: "2.0.0"
+      baseUrl: "https://api.punkapi.com/v2"
+      status: deprecated
+      notes: "Public endpoint decommissioned by BrewDog in 2023. Contract and dataset preserved via punkapi-db / community self-hosters."
+
+  resources:
+    - name: beers
+      api: punkapi
+      description: "BrewDog DIY Dog beer recipes (325 entries)."
+      actions: [list, get, random]
+
+  actions:
+    - name: list
+      httpMethod: GET
+      pattern: read
+      description: "Return a paginated list of beers with rich query filtering (ABV/IBU/EBC, date range, beer name, hops, malt, yeast, food pairing)."
+    - name: get
+      httpMethod: GET
+      pattern: read
+      description: "Return a single beer recipe by integer id."
+    - name: random
+      httpMethod: GET
+      pattern: read
+      description: "Return a single uniformly random beer recipe."
+
+  schemas:
+    core:
+      - name: Beer
+        properties: [id, name, tagline, first_brewed, description, image_url, abv, ibu, target_fg, target_og, ebc, srm, ph, attenuation_level, volume, boil_volume, method, ingredients, food_pairing, brewers_tips, contributed_by]
+      - name: Error
+        properties: [statusCode, error, message]
+    nested:
+      - name: Measurement
+        properties: [value, unit]
+      - name: Temperature
+        properties: [value, unit]
+      - name: Method
+        properties: [mash_temp, fermentation, twist]
+      - name: MashStep
+        properties: [temp, duration]
+      - name: Ingredients
+        properties: [malt, hops, yeast]
+      - name: Malt
+        properties: [name, amount]
+      - name: Hop
+        properties: [name, amount, add, attribute]
+
+  parameters:
+    pagination:
+      - name: page
+        in: query
+        type: integer
+      - name: per_page
+        in: query
+        type: integer
+    identifiers:
+      - name: beerId
+        in: path
+        type: integer
+    filters:
+      - name: abv_gt
+        in: query
+        type: number
+      - name: abv_lt
+        in: query
+        type: number
+      - name: ibu_gt
+        in: query
+        type: number
+      - name: ibu_lt
+        in: query
+        type: number
+      - name: ebc_gt
+        in: query
+        type: number
+      - name: ebc_lt
+        in: query
+        type: number
+      - name: beer_name
+        in: query
+        type: string
+      - name: hops
+        in: query
+        type: string
+      - name: malt
+        in: query
+        type: string
+      - name: yeast
+        in: query
+        type: string
+      - name: food
+        in: query
+        type: string
+      - name: brewed_before
+        in: query
+        type: string
+      - name: brewed_after
+        in: query
+        type: string
+
+  enums:
+    hopRoles: [bitter, flavour, aroma]
+    hopAdditionTiming: [start, middle, end, "dry hop"]
+    temperatureUnits: [celsius]
+    volumeUnits: [litres]
+    malt_units: [kilograms]
+    hop_units: [grams]
+
+  authentication:
+    schemes: []
+    description: "No authentication of any kind — Punk API was a fully public service."
+
+domain:
+  brewingTerms:
+    - term: ABV
+      definition: "Alcohol By Volume — percentage of alcohol in the finished beer."
+    - term: IBU
+      definition: "International Bitterness Units — measure of perceived bitterness from iso-alpha acids."
+    - term: EBC
+      definition: "European Brewery Convention colour scale (higher = darker)."
+    - term: SRM
+      definition: "Standard Reference Method colour scale (US analogue of EBC)."
+    - term: OG / Target OG
+      definition: "Original Gravity — wort density before fermentation."
+    - term: FG / Target FG
+      definition: "Final Gravity — beer density after fermentation completes."
+    - term: pH
+      definition: "Acidity of the mash / wort; affects enzyme activity and flavour."
+    - term: Attenuation
+      definition: "Percentage of fermentable sugars converted to alcohol by the yeast."
+    - term: Mash Temperature
+      definition: "Temperature at which crushed malt is steeped to convert starches to sugars."
+    - term: Boil Volume
+      definition: "Volume of wort at the start of the boil (accounts for evaporation)."
+    - term: Twist
+      definition: "Special flavour addition outside the standard mash/boil/ferment workflow."
+
+capability:
+  workflows:
+    - name: "Punk API Beers"
+      file: capabilities/punkapi-beers.yaml
+      description: "Beers capability — 3 read-only operations (list, get, random) over the BrewDog DIY Dog dataset."
+      apis: [punkapi]
+      toolCount: 3
+      personas: [Homebrewer, App Developer, Beer Enthusiast]
+      domains: [Beer]
+
+  personas:
+    - id: homebrewer
+      name: "Homebrewer"
+      description: "Replicates BrewDog DIY Dog recipes at small scale; queries by hop, malt, or ABV range."
+      workflows: [beers]
+    - id: app-developer
+      name: "App Developer"
+      description: "Builds beer-themed sample apps, tutorials, or demos against a free public REST API."
+      workflows: [beers]
+    - id: beer-enthusiast
+      name: "Beer Enthusiast"
+      description: "Browses beer recipes for food-pairing suggestions or to learn about BrewDog releases."
+      workflows: [beers]
+
+  domains:
+    - name: Beer
+      description: "Beer-recipe surface — recipes, ingredients, brewing method."
+      resources: [beers]
+
+  namespaces:
+    - consumed: punkapi-beers
+      rest: punkapi-beers-rest
+      mcp: punkapi-beers-mcp
+
+  binds:
+    - name: PUNKAPI_BASE_URL
+      description: "Override the base URL; defaults to https://api.punkapi.com/v2 (historical, no longer reachable). Point at a self-hosted mirror of sammdec/punkapi-server."
+      workflows: [beers]
+
+crossReference:
+  - resource: beers
+    operations: [listBeers, getBeer, getRandomBeer]
+    workflows: ["Punk API Beers"]
+    personas: [homebrewer, app-developer, beer-enthusiast]

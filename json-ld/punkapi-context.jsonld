@@ -1,0 +1,58 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "punk": "https://punkapi.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "qudt": "http://qudt.org/schema/qudt/",
+
+    "Beer": "punk:Beer",
+    "Measurement": "punk:Measurement",
+    "Temperature": "punk:Temperature",
+    "MashStep": "punk:MashStep",
+    "Method": "punk:Method",
+    "Ingredients": "punk:Ingredients",
+    "Malt": "punk:Malt",
+    "Hop": "punk:Hop",
+
+    "id": { "@id": "dcterms:identifier", "@type": "xsd:integer" },
+    "name": { "@id": "schema:name", "@type": "xsd:string" },
+    "tagline": { "@id": "schema:slogan", "@type": "xsd:string" },
+    "first_brewed": { "@id": "punk:firstBrewed", "@type": "xsd:string" },
+    "description": { "@id": "schema:description", "@type": "xsd:string" },
+    "image_url": { "@id": "schema:image", "@type": "@id" },
+    "abv": { "@id": "punk:abv", "@type": "xsd:float" },
+    "ibu": { "@id": "punk:ibu", "@type": "xsd:float" },
+    "target_fg": { "@id": "punk:targetFinalGravity", "@type": "xsd:float" },
+    "target_og": { "@id": "punk:targetOriginalGravity", "@type": "xsd:float" },
+    "ebc": { "@id": "punk:ebc", "@type": "xsd:float" },
+    "srm": { "@id": "punk:srm", "@type": "xsd:float" },
+    "ph": { "@id": "punk:ph", "@type": "xsd:float" },
+    "attenuation_level": { "@id": "punk:attenuationLevel", "@type": "xsd:float" },
+
+    "volume": { "@id": "punk:volume", "@type": "@id" },
+    "boil_volume": { "@id": "punk:boilVolume", "@type": "@id" },
+    "value": { "@id": "qudt:numericValue", "@type": "xsd:float" },
+    "unit": { "@id": "qudt:unit", "@type": "xsd:string" },
+
+    "method": { "@id": "punk:method", "@type": "@id" },
+    "mash_temp": { "@id": "punk:mashTemp", "@container": "@list" },
+    "fermentation": { "@id": "punk:fermentation", "@type": "@id" },
+    "temp": { "@id": "punk:temperature", "@type": "@id" },
+    "duration": { "@id": "punk:durationMinutes", "@type": "xsd:integer" },
+    "twist": { "@id": "punk:twist", "@type": "xsd:string" },
+
+    "ingredients": { "@id": "punk:ingredients", "@type": "@id" },
+    "malt": { "@id": "punk:malt", "@container": "@list" },
+    "hops": { "@id": "punk:hops", "@container": "@list" },
+    "yeast": { "@id": "punk:yeast", "@type": "xsd:string" },
+    "amount": { "@id": "punk:amount", "@type": "@id" },
+    "add": { "@id": "punk:hopAdditionTiming", "@type": "xsd:string" },
+    "attribute": { "@id": "punk:hopRole", "@type": "xsd:string" },
+
+    "food_pairing": { "@id": "punk:foodPairing", "@container": "@list" },
+    "brewers_tips": { "@id": "punk:brewersTips", "@type": "xsd:string" },
+    "contributed_by": { "@id": "dcterms:contributor", "@type": "xsd:string" }
+  }
+}

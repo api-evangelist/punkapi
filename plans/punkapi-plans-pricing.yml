@@ -1,0 +1,76 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Punk API
+providerId: punkapi
+created: '2026-05-29'
+modified: '2026-05-29'
+reconciled: true
+tags:
+  - Food And Drink
+  - Beer
+  - Open Source
+  - Free API
+description: >-
+  Punk API was always offered as a free, no-signup, no-key public REST API
+  with no commercial pricing surface. There were no paid tiers, no metered
+  usage, no quotas, and no SLAs. The service was funded as a community
+  project by Sam Mason (sammdec / samjbmason). BrewDog decommissioned the
+  hosted api.punkapi.com endpoint in 2023 and the supporting repositories
+  (sammdec/punkapi-db, sammdec/punkapi-server) were archived on 2023-06-28.
+  Teams that want the data going forward are expected to self-host the
+  open-source server against the `punkapi-db` dataset (npm package) or use
+  a community-maintained mirror. There is no plan surface to negotiate, sell,
+  or upgrade.
+sources:
+  - https://punkapi.com
+  - https://github.com/sammdec/punkapi
+  - https://github.com/sammdec/punkapi-server
+  - https://www.brewdog.com/diydog
+plans:
+  - id: punkapi-free
+    name: Free (historical)
+    type: freemium
+    description: >-
+      The only tier. Unlimited, anonymous, no-signup access to the Punk API
+      read-only Beers surface. This is also the tier that community
+      self-hosters reproduce verbatim.
+    entries:
+      - label: API requests
+        name: api_requests
+        type: flat
+        metric: request
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '$0.00'
+        userMultiplied: false
+      - label: Authentication
+        name: authentication
+        type: flat
+        metric: varies
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: 'none required'
+        userMultiplied: false
+      - label: SLA
+        name: sla
+        type: flat
+        metric: varies
+        limit: 0
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: 'none — best-effort community service (decommissioned in 2023)'
+        userMultiplied: false
+    elements:
+      - name: List beers with ABV / IBU / EBC / date / ingredient filters
+      - name: Get beer by id (1-325)
+      - name: Get random beer
+      - name: Pagination (page, per_page up to 80)
+      - name: No rate limits documented or enforced
+      - name: MIT-licensed source code on GitHub (sammdec/punkapi, sammdec/punkapi-server)
+      - name: Recipe dataset distributed via npm as `punkapi-db`

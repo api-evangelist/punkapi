@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/punkapi/refs/heads/main/json-schema/punkapi-error-schema.json",
+  "title": "Error",
+  "description": "Punk API server error envelope returned for 4xx/5xx responses.",
+  "type": "object",
+  "required": ["statusCode", "message"],
+  "properties": {
+    "statusCode": { "type": "integer", "description": "HTTP status code.", "example": 404 },
+    "error": { "type": "string", "description": "HTTP status text.", "example": "Not Found" },
+    "message": { "type": "string", "description": "Human-readable error message.", "example": "No beer found that matches the ID 9999" }
+  }
+}

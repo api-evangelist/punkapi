@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/punkapi/refs/heads/main/json-structure/punkapi-beer-structure.json",
+  "name": "Beer",
+  "description": "A BrewDog DIY Dog beer recipe — full crowdsourced recipe entry from the Punk API dataset.",
+  "type": "object",
+  "required": ["id", "name", "tagline", "first_brewed", "description", "abv", "volume", "boil_volume", "method", "ingredients"],
+  "properties": {
+    "id": { "type": "int32", "description": "Unique recipe identifier (1-325)." },
+    "name": { "type": "string", "description": "Beer name." },
+    "tagline": { "type": "string", "description": "Short marketing tagline." },
+    "first_brewed": { "type": "string", "description": "First brewed date (mm/yyyy or yyyy)." },
+    "description": { "type": "string", "description": "Free-text recipe description." },
+    "image_url": { "type": "string", "description": "Bottle image URL." },
+    "abv": { "type": "float64", "description": "Alcohol by volume (%)." },
+    "ibu": { "type": "float64", "description": "International Bitterness Units." },
+    "target_fg": { "type": "float64", "description": "Target final gravity." },
+    "target_og": { "type": "float64", "description": "Target original gravity." },
+    "ebc": { "type": "float64", "description": "European Brewery Convention colour." },
+    "srm": { "type": "float64", "description": "Standard Reference Method colour." },
+    "ph": { "type": "float64", "description": "Target wort pH." },
+    "attenuation_level": { "type": "float64", "description": "Yeast attenuation level (%)." },
+    "volume": { "type": "object", "properties": { "value": { "type": "float64" }, "unit": { "type": "string" } } },
+    "boil_volume": { "type": "object", "properties": { "value": { "type": "float64" }, "unit": { "type": "string" } } },
+    "method": {
+      "type": "object",
+      "properties": {
+        "mash_temp": { "type": "array", "items": { "type": "object" } },
+        "fermentation": { "type": "object" },
+        "twist": { "type": "string" }
+      }
+    },
+    "ingredients": {
+      "type": "object",
+      "properties": {
+        "malt": { "type": "array", "items": { "type": "object" } },
+        "hops": { "type": "array", "items": { "type": "object" } },
+        "yeast": { "type": "string" }
+      }
+    },
+    "food_pairing": { "type": "array", "items": { "type": "string" } },
+    "brewers_tips": { "type": "string" },
+    "contributed_by": { "type": "string" }
+  }
+}

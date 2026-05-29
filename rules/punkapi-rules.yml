@@ -1,0 +1,340 @@
+extends: spectral:oas
+
+rules:
+
+  # ── INFO / METADATA ──────────────────────────────────────────────
+  info-title-punkapi-prefix:
+    description: Spec title should begin with "Punk API".
+    severity: warn
+    given: $.info
+    then:
+      field: title
+      function: pattern
+      functionOptions:
+        match: '^Punk API'
+
+  info-description-required:
+    description: Spec must include a non-empty description.
+    severity: error
+    given: $.info
+    then:
+      field: description
+      function: truthy
+
+  info-version-required:
+    description: Spec must declare a version.
+    severity: error
+    given: $.info
+    then:
+      field: version
+      function: truthy
+
+  info-license-required:
+    description: Spec must include license info (Punk API is MIT-licensed).
+    severity: warn
+    given: $.info
+    then:
+      field: license
+      function: truthy
+
+  info-deprecation-status:
+    description: Spec must declare x-status (deprecated for the public Punk API).
+    severity: warn
+    given: $.info
+    then:
+      field: x-status
+      function: truthy
+
+  # ── OPENAPI VERSION ──────────────────────────────────────────────
+  openapi-version-3-0-3:
+    description: Specs must target OpenAPI 3.0.x.
+    severity: warn
+    given: $.openapi
+    then:
+      function: pattern
+      functionOptions:
+        match: '^3\.0\.'
+
+  # ── SERVERS ──────────────────────────────────────────────────────
+  servers-https-required:
+    description: Production server URLs must use HTTPS.
+    severity: error
+    given: $.servers[0].url
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://'
+
+  servers-punkapi-host:
+    description: Production server URL must point at api.punkapi.com/v2.
+    severity: warn
+    given: $.servers[0].url
+    then:
+      function: pattern
+      functionOptions:
+        match: 'api\.punkapi\.com/v2'
+
+  # ── PATHS — NAMING ───────────────────────────────────────────────
+  paths-lowercase:
+    description: Paths must be lowercase.
+    severity: error
+    given: $.paths.*~
+    then:
+      function: pattern
+      functionOptions:
+        match: '^/[a-z0-9/{}_-]*$'
+
+  paths-no-trailing-slash:
+    description: Paths must not end with a trailing slash.
+    severity: error
+    given: $.paths.*~
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: '.+/$'
+
+  paths-beers-resource:
+    description: Punk API only exposes /beers, /beers/{beerId}, and /beers/random.
+    severity: warn
+    given: $.paths.*~
+    then:
+      function: pattern
+      functionOptions:
+        match: '^/beers(/.*)?$'
+
+  # ── OPERATIONS ───────────────────────────────────────────────────
+  operation-summary-required:
+    description: Every operation must have a summary.
+    severity: error
+    given: $.paths.*[get,post,put,patch,delete]
+    then:
+      field: summary
+      function: truthy
+
+  operation-description-required:
+    description: Every operation must have a description.
+    severity: warn
+    given: $.paths.*[get,post,put,patch,delete]
+    then:
+      field: description
+      function: truthy
+
+  operation-summary-punkapi-prefix:
+    description: Every operation summary must start with "Punk API".
+    severity: warn
+    given: $.paths.*[get,post,put,patch,delete].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: '^Punk API'
+
+  operation-operationid-required:
+    description: Every operation must declare an operationId.
+    severity: error
+    given: $.paths.*[get,post,put,patch,delete]
+    then:
+      field: operationId
+      function: truthy
+
+  operation-operationid-camelcase:
+    description: operationId must be camelCase.
+    severity: warn
+    given: $.paths.*[get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-zA-Z0-9]*$'
+
+  operation-operationid-verb-prefix:
+    description: operationId should begin with list/get.
+    severity: info
+    given: $.paths.*[get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: '^(list|get)[A-Z]'
+
+  operation-tags-required:
+    description: Every operation must declare at least one tag.
+    severity: error
+    given: $.paths.*[get,post,put,patch,delete]
+    then:
+      field: tags
+      function: truthy
+
+  operation-tag-beers:
+    description: All operations must be tagged 'Beers'.
+    severity: warn
+    given: $.paths.*[get,post,put,patch,delete].tags
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          contains:
+            const: Beers
+
+  operation-microcks-extension:
+    description: Every operation should declare x-microcks-operation.
+    severity: info
+    given: $.paths.*[get,post,put,patch,delete]
+    then:
+      field: x-microcks-operation
+      function: truthy
+
+  # ── TAGS ─────────────────────────────────────────────────────────
+  tag-title-case:
+    description: Global tag names must use Title Case.
+    severity: warn
+    given: $.tags[*].name
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[A-Z][a-z]+$'
+
+  tag-description-required:
+    description: Each global tag must include a description.
+    severity: warn
+    given: $.tags[*]
+    then:
+      field: description
+      function: truthy
+
+  # ── PARAMETERS ───────────────────────────────────────────────────
+  parameter-description-required:
+    description: Every parameter must have a description.
+    severity: warn
+    given: $.paths.*[get,post,put,patch,delete].parameters[*]
+    then:
+      field: description
+      function: truthy
+
+  parameter-snake-or-camel:
+    description: Query parameter names use snake_case (Punk API convention) or camelCase (beerId).
+    severity: warn
+    given: $.paths.*[get,post,put,patch,delete].parameters[*].name
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-zA-Z0-9_]*$'
+
+  query-pagination-pair:
+    description: Pagination uses the pair (page, per_page).
+    severity: info
+    given: $.paths.*[get].parameters[?(@.in=='query')].name
+    then:
+      function: pattern
+      functionOptions:
+        match: '^(page|per_page|abv_gt|abv_lt|ibu_gt|ibu_lt|ebc_gt|ebc_lt|beer_name|hops|malt|yeast|food|brewed_before|brewed_after)$'
+
+  # ── RESPONSES ────────────────────────────────────────────────────
+  response-success-required:
+    description: Every operation must define a 2xx success response.
+    severity: error
+    given: $.paths.*[get,post,put,patch,delete].responses
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          patternProperties:
+            '^2\d\d$': {}
+          minProperties: 1
+
+  response-description-required:
+    description: Every response must have a description.
+    severity: warn
+    given: $.paths.*[get,post,put,patch,delete].responses.*
+    then:
+      field: description
+      function: truthy
+
+  response-json-content:
+    description: Success responses must return application/json.
+    severity: warn
+    given: $.paths.*[get,post,put,patch,delete].responses[?(@property.match(/^2\d\d$/))].content
+    then:
+      field: application/json
+      function: truthy
+
+  response-error-envelope:
+    description: 4xx/5xx responses should reference the shared Error schema.
+    severity: info
+    given: $.paths.*[get,post,put,patch,delete].responses[?(@property.match(/^(4|5)\d\d$/))].content.application/json.schema
+    then:
+      field: $ref
+      function: truthy
+
+  # ── SCHEMAS ──────────────────────────────────────────────────────
+  schema-property-snake-case:
+    description: Beer schema property names use snake_case (matches the Punk API JSON shape).
+    severity: warn
+    given: $.components.schemas.Beer.properties.*~
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-z0-9_]*$'
+
+  schema-description-required:
+    description: Top-level schemas must include a description.
+    severity: warn
+    given: $.components.schemas.*
+    then:
+      field: description
+      function: truthy
+
+  schema-type-required:
+    description: Top-level schemas must declare a type.
+    severity: error
+    given: $.components.schemas.*
+    then:
+      field: type
+      function: truthy
+
+  schema-beer-required-fields:
+    description: Beer schema must require id, name, abv, ingredients, method.
+    severity: warn
+    given: $.components.schemas.Beer
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          properties:
+            required:
+              type: array
+              contains: { const: id }
+          required: [required]
+
+  # ── HTTP METHOD CONVENTIONS ──────────────────────────────────────
+  get-no-request-body:
+    description: GET operations must not declare a request body.
+    severity: error
+    given: $.paths.*.get
+    then:
+      field: requestBody
+      function: falsy
+
+  read-only-surface:
+    description: Punk API exposes a read-only surface (GET only).
+    severity: warn
+    given: $.paths.*
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          not:
+            anyOf:
+              - required: [post]
+              - required: [put]
+              - required: [patch]
+              - required: [delete]
+
+  # ── GENERAL ──────────────────────────────────────────────────────
+  no-empty-descriptions:
+    description: Descriptions must be non-empty when present.
+    severity: warn
+    given: '$..description'
+    then:
+      function: truthy

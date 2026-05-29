@@ -1,0 +1,75 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Punk API
+providerId: punkapi
+created: '2026-05-29'
+modified: '2026-05-29'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Food And Drink
+  - Beer
+  - Free API
+description: >-
+  Punk API never published explicit rate-limit numbers. The public
+  api.punkapi.com endpoint operated as a free best-effort community service
+  until BrewDog decommissioned it in 2023. While the service was live, the
+  only enforced constraint was the `per_page` ceiling of 80 items per
+  request on the `/beers` endpoint; everything else (per-IP request rate,
+  daily quotas, concurrency caps) was undocumented and any throttling
+  occurred at the CDN edge. Consumers running the same `punkapi-server`
+  code against a self-hosted dataset (or against a community mirror) should
+  treat the same defaults as applicable.
+sources:
+  - https://punkapi.com
+  - https://github.com/sammdec/punkapi-server
+  - https://github.com/sammdec/punkapi-server/blob/master/schemas/beers.js
+responseCodes:
+  validationError: 400
+  notFound: 404
+  serverError: 500
+limits:
+  - name: 'Per-page ceiling'
+    scope: 'request'
+    metric: 'items'
+    limit: '80 items per page (enforced; validation error if exceeded)'
+    notes: >-
+      The `per_page` query parameter on /beers is validated to be an integer
+      between 1 and 80 inclusive. Anything outside the range returns a 400
+      with a validation error message.
+  - name: 'Documented per-IP rate limit'
+    scope: 'IP'
+    metric: 'varies'
+    limit: 'none documented — best-effort public service'
+    notes: >-
+      No per-second, per-minute, or per-day request cap was published.
+  - name: 'Edge / CDN protection'
+    scope: 'IP'
+    metric: 'varies'
+    limit: 'undisclosed CDN-level abuse protection may have applied'
+    notes: >-
+      Like most free public REST services, the production endpoint was
+      fronted by a CDN that could throttle obviously abusive traffic; the
+      thresholds were never disclosed and the endpoint is no longer live.
+policies:
+  - name: 'Treat as best-effort (historical)'
+    description: >-
+      Punk API was a free community service. Even while live, consumers were
+      not expected to depend on it for production traffic. Now that the
+      hosted endpoint is decommissioned, treat any reference to
+      api.punkapi.com as historical only.
+  - name: 'Use a self-host or mirror'
+    description: >-
+      Install `punkapi-db` from npm (`npm i punkapi-db`) and serve the data
+      yourself, or stand up sammdec/punkapi-server locally. This is the
+      forward path now that the hosted endpoint is gone.
+  - name: 'Cache aggressively'
+    description: >-
+      The dataset is fully static (325 historical recipes). Cache responses
+      indefinitely; there is no need to re-fetch the same beer id more than
+      once per deploy.
+  - name: 'Back off on 5xx'
+    description: >-
+      If you operate a self-hosted mirror and start receiving 5xx, apply
+      exponential backoff with jitter rather than tight retries.
