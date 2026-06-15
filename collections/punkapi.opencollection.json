@@ -1,0 +1,151 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Punk API — Brewdog DIY Dog Beer Recipes",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Beers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Punk API List Beers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.punkapi.com/v2/beers",
+            "params": [
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number (1-indexed)."
+              },
+              {
+                "name": "per_page",
+                "value": "25",
+                "type": "query",
+                "description": "Number of items per page (1-80)."
+              },
+              {
+                "name": "abv_gt",
+                "value": "5",
+                "type": "query",
+                "description": "Return beers with an ABV strictly greater than the supplied number."
+              },
+              {
+                "name": "abv_lt",
+                "value": "10",
+                "type": "query",
+                "description": "Return beers with an ABV strictly less than the supplied number."
+              },
+              {
+                "name": "ibu_gt",
+                "value": "40",
+                "type": "query",
+                "description": "Return beers with an IBU (bitterness) strictly greater than the supplied number."
+              },
+              {
+                "name": "ibu_lt",
+                "value": "100",
+                "type": "query",
+                "description": "Return beers with an IBU strictly less than the supplied number."
+              },
+              {
+                "name": "ebc_gt",
+                "value": "20",
+                "type": "query",
+                "description": "Return beers with an EBC (colour) strictly greater than the supplied number."
+              },
+              {
+                "name": "ebc_lt",
+                "value": "80",
+                "type": "query",
+                "description": "Return beers with an EBC strictly less than the supplied number."
+              },
+              {
+                "name": "beer_name",
+                "value": "punk_ipa",
+                "type": "query",
+                "description": "Substring match on beer name. Use underscores in place of spaces (e.g. `beer_name=punk_ipa`)."
+              },
+              {
+                "name": "hops",
+                "value": "simcoe",
+                "type": "query",
+                "description": "Substring match on hop name. Use underscores in place of spaces (e.g. `hops=simcoe`)."
+              },
+              {
+                "name": "malt",
+                "value": "maris_otter",
+                "type": "query",
+                "description": "Substring match on malt name. Use underscores in place of spaces (e.g. `malt=maris_otter`)."
+              },
+              {
+                "name": "yeast",
+                "value": "wyeast",
+                "type": "query",
+                "description": "Substring match on yeast strain name. Use underscores for spaces."
+              },
+              {
+                "name": "food",
+                "value": "spicy_food",
+                "type": "query",
+                "description": "Substring match against a beer's food-pairing list. Use underscores in place of spaces (e.g. `food=spicy_food`)."
+              },
+              {
+                "name": "brewed_before",
+                "value": "12-2010",
+                "type": "query",
+                "description": "Return beers first brewed before the supplied date. Format: `mm-yyyy` (e.g. `12-2010`)."
+              },
+              {
+                "name": "brewed_after",
+                "value": "01-2015",
+                "type": "query",
+                "description": "Return beers first brewed after the supplied date. Format: `mm-yyyy` (e.g. `01-2015`)."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of BrewDog beer recipes. Supports a rich family of recipe-oriented query filters — ABV / IBU / EBC ranges, brewed-before/after date ranges, and substring lookups on beer name, hops, malt, yeast, and food pairing. Underscores are used in place of spaces inside multi-word filter values (e.g. `hops=simcoe` or `food=spicy_food`). Pagination uses `page` (>=1) and `per_page` (1-80, default 25)."
+        },
+        {
+          "info": {
+            "name": "Punk API Get Beer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.punkapi.com/v2/beers/:beerId",
+            "params": [
+              {
+                "name": "beerId",
+                "value": "1",
+                "type": "path",
+                "description": "Beer identifier (integer >= 1)."
+              }
+            ]
+          },
+          "docs": "Returns a single beer recipe by its integer id. The id range is roughly 1-325 (matching the 325 DIY Dog recipes in the dataset). Returns 404 when no beer matches the supplied id."
+        },
+        {
+          "info": {
+            "name": "Punk API Get Random Beer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.punkapi.com/v2/beers/random"
+          },
+          "docs": "Returns a single random beer recipe sampled uniformly from the 325 DIY Dog entries. Useful for \"beer of the day\" demos and for sampling the shape of the dataset."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

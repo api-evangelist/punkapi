@@ -1,20 +1,15 @@
 aid: punkapi
 name: Punk API
 description: >-
-  Punk API is a free, no-auth REST API exposing BrewDog's "DIY Dog" open-source
-  beer recipe collection — 325 detailed homebrew recipes crowdsourced and
-  transcribed from the BrewDog DIY Dog PDF. The v2 surface (api.punkapi.com/v2)
-  offered three read-only endpoints: list beers (with rich query filtering on
-  ABV, IBU, EBC, brew date, beer name, hops, malt, yeast, and food pairing),
-  get a beer by id, and get a random beer. Each beer carries a full recipe —
-  ABV, IBU, EBC/SRM colour, target gravities, mash temperature schedule,
-  fermentation temperature, twist, malt and hop bills, yeast strain, food
-  pairings, brewer's tips, and contributor attribution. STATUS — DEPRECATED.
-  BrewDog decommissioned the public api.punkapi.com endpoint in 2023 and the
-  source repositories (sammdec/punkapi-db, sammdec/punkapi-server) were
-  archived on 2023-06-28. The dataset and server source remain MIT-licensed
-  and available; community-hosted mirrors and the `punkapi-db` npm package
-  preserve the contract documented here.
+  Punk API is a free, no-auth REST API exposing BrewDog's "DIY Dog" open-source beer recipe collection — 325 detailed
+  homebrew recipes crowdsourced and transcribed from the BrewDog DIY Dog PDF. The v2 surface (api.punkapi.com/v2)
+  offered three read-only endpoints: list beers (with rich query filtering on ABV, IBU, EBC, brew date, beer name, hops,
+  malt, yeast, and food pairing), get a beer by id, and get a random beer. Each beer carries a full recipe — ABV, IBU,
+  EBC/SRM colour, target gravities, mash temperature schedule, fermentation temperature, twist, malt and hop bills,
+  yeast strain, food pairings, brewer's tips, and contributor attribution. STATUS — DEPRECATED. BrewDog decommissioned
+  the public api.punkapi.com endpoint in 2023 and the source repositories (sammdec/punkapi-db, sammdec/punkapi-server)
+  were archived on 2023-06-28. The dataset and server source remain MIT-licensed and available; community-hosted mirrors
+  and the `punkapi-db` npm package preserve the contract documented here.
 url: https://punkapi.com
 baseURL: https://api.punkapi.com/v2
 specificationVersion: '0.20'
@@ -29,8 +24,8 @@ x-status: deprecated
 x-deprecated-on: '2023'
 x-archived-on: '2023-06-28'
 x-replacement: >-
-  Self-host sammdec/punkapi-server against the `punkapi-db` npm dataset, or
-  point clients at a community-maintained mirror.
+  Self-host sammdec/punkapi-server against the `punkapi-db` npm dataset, or point clients at a community-maintained
+  mirror.
 tags:
   - Food And Drink
   - Beer
@@ -44,11 +39,10 @@ tags:
 apis:
   - name: Punk API — Beers
     description: >-
-      Read-only REST surface over the 325 BrewDog DIY Dog beer recipes. Three
-      operations — list (with ABV/IBU/EBC/date/ingredient filters and
-      page/per_page pagination up to 80 items), get-by-id, and random. No
-      authentication. The historical baseURL (api.punkapi.com/v2) is no
-      longer reachable; self-host sammdec/punkapi-server or run a mirror.
+      Read-only REST surface over the 325 BrewDog DIY Dog beer recipes. Three operations — list (with
+      ABV/IBU/EBC/date/ingredient filters and page/per_page pagination up to 80 items), get-by-id, and random. No
+      authentication. The historical baseURL (api.punkapi.com/v2) is no longer reachable; self-host
+      sammdec/punkapi-server or run a mirror.
     humanURL: https://punkapi.com
     baseURL: https://api.punkapi.com/v2
     tags:
@@ -81,8 +75,6 @@ apis:
       - type: Example
         url: examples/punkapi-error-example.json
         title: Error Example
-      - type: NaftikoCapability
-        url: capabilities/punkapi-beers.yaml
 common:
   - type: Website
     url: https://punkapi.com
@@ -134,11 +126,17 @@ common:
   - type: Features
     data:
       - name: 325 BrewDog DIY Dog Recipes
-        description: Crowdsourced transcription of the complete BrewDog DIY Dog PDF — every recipe from Punk IPA (#001) through the final published batch.
+        description: >-
+          Crowdsourced transcription of the complete BrewDog DIY Dog PDF — every recipe from Punk IPA (#001) through the
+          final published batch.
       - name: Full Brewing Recipe
-        description: Each beer carries ABV, IBU, EBC, SRM, target gravities, mash schedule, fermentation temperature, malt bill, hop bill, yeast strain, food pairings, and brewer's tips.
+        description: >-
+          Each beer carries ABV, IBU, EBC, SRM, target gravities, mash schedule, fermentation temperature, malt bill,
+          hop bill, yeast strain, food pairings, and brewer's tips.
       - name: Recipe-Oriented Query Filters
-        description: List endpoint supports filters on ABV (gt/lt), IBU (gt/lt), EBC (gt/lt), brewed-before/after dates, and substring search on beer name, hops, malt, yeast, and food pairing.
+        description: >-
+          List endpoint supports filters on ABV (gt/lt), IBU (gt/lt), EBC (gt/lt), brewed-before/after dates, and
+          substring search on beer name, hops, malt, yeast, and food pairing.
       - name: Pagination
         description: page (>=1) and per_page (1-80, default 25) on the list endpoint.
       - name: Random Beer
@@ -160,11 +158,15 @@ common:
       - name: Beer Discovery App
         description: Power beer recommendation apps, food-pairing tools, and BrewDog fan sites.
       - name: Search by Ingredient
-        description: Filter by hop (e.g. `hops=simcoe`) or malt (e.g. `malt=maris_otter`) to discover recipes using a specific ingredient.
+        description: >-
+          Filter by hop (e.g. `hops=simcoe`) or malt (e.g. `malt=maris_otter`) to discover recipes using a specific
+          ingredient.
       - name: Food Pairing Lookup
         description: Filter by `food=spicy_food` to find beers explicitly recommended for spicy cuisine.
       - name: HTTP Client QA
-        description: Stable, well-defined schema makes Punk API a good fixture for codegen tools, OpenAPI tooling, and SDK builders.
+        description: >-
+          Stable, well-defined schema makes Punk API a good fixture for codegen tools, OpenAPI tooling, and SDK
+          builders.
   - type: Integrations
     data:
       - name: BrewDog DIY Dog
@@ -174,15 +176,19 @@ common:
       - name: punkapi-server (Express)
         description: The reference Express + node server that exposes the dataset as the v2 REST API.
       - name: Community Mirrors
-        description: Several community-run instances of punkapi-server keep the v2 contract reachable after BrewDog's 2023 decommission.
+        description: >-
+          Several community-run instances of punkapi-server keep the v2 contract reachable after BrewDog's 2023
+          decommission.
       - name: Public APIs Catalog
         description: Listed in github.com/public-apis/public-apis under the Food & Drink category.
   - type: Solutions
     data:
       - name: Self-Host the Server
-        description: 'Clone sammdec/punkapi-server, run `npm i` then `npm run dev` — get the full v2 contract on http://localhost:3333.'
+        description: >-
+          Clone sammdec/punkapi-server, run `npm i` then `npm run dev` — get the full v2 contract on
+          http://localhost:3333.
       - name: Embed the Dataset
-        description: 'Run `npm i --save punkapi-db` to pull the full 325-recipe data.json into your application without HTTP.'
+        description: Run `npm i --save punkapi-db` to pull the full 325-recipe data.json into your application without HTTP.
       - name: Static JSON Mirror
         description: For purely read use cases, host data.json on a CDN and serve clients directly.
 maintainers:
