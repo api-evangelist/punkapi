@@ -69,10 +69,10 @@ apis:
         title: Error Structure
       - type: JSONLD
         url: json-ld/punkapi-context.jsonld
-      - type: Example
+      - type: Examples
         url: examples/punkapi-beer-example.json
         title: Beer Example
-      - type: Example
+      - type: Examples
         url: examples/punkapi-error-example.json
         title: Error Example
 common:
@@ -86,31 +86,31 @@ common:
     title: punkapi-server (Express server — archived 2023-06-28)
   - type: GitHubOrganization
     url: https://github.com/sammdec
-  - type: SDK
+  - type: SDKs
     url: https://www.npmjs.com/package/punkapi-db
     title: punkapi-db (npm — recipe dataset)
-  - type: SDK
+  - type: SDKs
     url: https://github.com/apfohl/punkapi
     title: punkapi (C client)
-  - type: SDK
+  - type: SDKs
     url: https://github.com/samjbmason/punkapi-ruby
     title: punkapi-ruby (Ruby client)
-  - type: SDK
+  - type: SDKs
     url: https://github.com/billythekid/PunkApi
     title: PunkApi (PHP client)
-  - type: SDK
+  - type: SDKs
     url: https://github.com/mikefrancis/brewdog.js
     title: brewdog.js (JavaScript client)
-  - type: SDK
+  - type: SDKs
     url: https://github.com/Oni-zerone/PunkAPI
     title: PunkAPI (Swift/iOS client)
-  - type: SDK
+  - type: SDKs
     url: https://github.com/yoohahn/VueDogs-API
     title: VueDogs-API (Vue.js client)
-  - type: SDK
+  - type: SDKs
     url: https://hub.docker.com/r/yoohahn/brewdog-recipe
     title: brewdog-recipe (Docker mirror)
-  - type: SDK
+  - type: SDKs
     url: https://github.com/phillc73/brewdogr
     title: brewdogr (R client)
   - type: PublicAPIsListing
