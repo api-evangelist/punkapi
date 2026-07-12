@@ -76,6 +76,8 @@ apis:
         url: examples/punkapi-error-example.json
         title: Error Example
 common:
+  - type: DomainSecurity
+    url: security/punkapi-domain-security.yml
   - type: Website
     url: https://punkapi.com
   - type: GitHubRepository

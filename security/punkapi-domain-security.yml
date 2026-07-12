@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: punkapi.com
+  https: false
+- host: api.punkapi.com
+  https: false
+domains:
+- domain: punkapi.com
+  dnssec: true
+  caa: []
+  spf: false
+  dmarc: false
