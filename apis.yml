@@ -76,6 +76,8 @@ apis:
         url: examples/punkapi-error-example.json
         title: Error Example
 common:
+  - type: AgenticAccess
+    url: agentic-access/punkapi-agentic-access.yml
   - type: DomainSecurity
     url: security/punkapi-domain-security.yml
   - type: Website
