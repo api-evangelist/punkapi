@@ -1,0 +1,492 @@
+openapi: 3.0.3
+info:
+  title: Punk API — Brewdog DIY Dog Beer Recipes Beers API
+  description: 'Punk API is a free, no-auth REST API that exposes BrewDog''s DIY Dog open-source beer recipe collection — 325 detailed homebrew recipes crowdsourced from the BrewDog DIY Dog PDF. The v2 surface (`api.punkapi.com/v2`) historically supported three endpoints: list beers (with rich query filtering), get a beer by id, and get a random beer. Each beer carries a full recipe: ABV, IBU, EBC/SRM colour, target gravity, mash temperature schedule, fermentation temperature, twist, malt and hop bills, yeast, food pairings, brewer''s tips, and contributor attribution. The public `api.punkapi.com` endpoint was sunset by BrewDog in 2023 and the source repositories (sammdec/punkapi-db, sammdec/punkapi-server) were archived on 2023-06-28. The dataset remains available via the `punkapi-db` npm package and via community-hosted mirrors that re-deploy `punkapi-server` against the original `data.json` file.'
+  version: 2.0.0
+  contact:
+    name: Sam Mason (sammdec / samjbmason)
+    url: https://github.com/sammdec/punkapi
+  license:
+    name: MIT
+    url: https://github.com/sammdec/punkapi/blob/master/LICENSE
+  x-generated-from: source-code (sammdec/punkapi-server routes + schemas)
+  x-last-validated: '2026-05-29'
+  x-status: deprecated
+  x-deprecation-notes: api.punkapi.com was decommissioned by BrewDog in 2023. The endpoint documented here describes the historical contract and the contract still served by community self-hosters that mount the punkapi-db dataset behind the original punkapi-server Express app.
+servers:
+- url: https://api.punkapi.com/v2
+  description: Historical public production endpoint (decommissioned 2023 — kept here for reference; not currently reachable)
+- url: http://localhost:3333/v2
+  description: Local self-host of sammdec/punkapi-server (npm run dev)
+tags:
+- name: Beers
+  description: BrewDog DIY Dog beer recipes — 325 entries
+paths:
+  /beers:
+    get:
+      operationId: listBeers
+      summary: Punk API List Beers
+      description: Returns a paginated list of BrewDog beer recipes. Supports a rich family of recipe-oriented query filters — ABV / IBU / EBC ranges, brewed-before/after date ranges, and substring lookups on beer name, hops, malt, yeast, and food pairing. Underscores are used in place of spaces inside multi-word filter values (e.g. `hops=simcoe` or `food=spicy_food`). Pagination uses `page` (>=1) and `per_page` (1-80, default 25).
+      tags:
+      - Beers
+      parameters:
+      - name: page
+        in: query
+        description: Page number (1-indexed).
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+        example: 1
+      - name: per_page
+        in: query
+        description: Number of items per page (1-80).
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 80
+          default: 25
+        example: 25
+      - name: abv_gt
+        in: query
+        description: Return beers with an ABV strictly greater than the supplied number.
+        required: false
+        schema:
+          type: number
+          format: float
+          minimum: 0
+        example: 5
+      - name: abv_lt
+        in: query
+        description: Return beers with an ABV strictly less than the supplied number.
+        required: false
+        schema:
+          type: number
+          format: float
+          minimum: 0
+        example: 10
+      - name: ibu_gt
+        in: query
+        description: Return beers with an IBU (bitterness) strictly greater than the supplied number.
+        required: false
+        schema:
+          type: number
+          format: float
+          minimum: 0
+        example: 40
+      - name: ibu_lt
+        in: query
+        description: Return beers with an IBU strictly less than the supplied number.
+        required: false
+        schema:
+          type: number
+          format: float
+          minimum: 0
+        example: 100
+      - name: ebc_gt
+        in: query
+        description: Return beers with an EBC (colour) strictly greater than the supplied number.
+        required: false
+        schema:
+          type: number
+          format: float
+          minimum: 0
+        example: 20
+      - name: ebc_lt
+        in: query
+        description: Return beers with an EBC strictly less than the supplied number.
+        required: false
+        schema:
+          type: number
+          format: float
+          minimum: 0
+        example: 80
+      - name: beer_name
+        in: query
+        description: Substring match on beer name. Use underscores in place of spaces (e.g. `beer_name=punk_ipa`).
+        required: false
+        schema:
+          type: string
+        example: punk_ipa
+      - name: hops
+        in: query
+        description: Substring match on hop name. Use underscores in place of spaces (e.g. `hops=simcoe`).
+        required: false
+        schema:
+          type: string
+        example: simcoe
+      - name: malt
+        in: query
+        description: Substring match on malt name. Use underscores in place of spaces (e.g. `malt=maris_otter`).
+        required: false
+        schema:
+          type: string
+        example: maris_otter
+      - name: yeast
+        in: query
+        description: Substring match on yeast strain name. Use underscores for spaces.
+        required: false
+        schema:
+          type: string
+        example: wyeast
+      - name: food
+        in: query
+        description: Substring match against a beer's food-pairing list. Use underscores in place of spaces (e.g. `food=spicy_food`).
+        required: false
+        schema:
+          type: string
+        example: spicy_food
+      - name: brewed_before
+        in: query
+        description: 'Return beers first brewed before the supplied date. Format: `mm-yyyy` (e.g. `12-2010`).'
+        required: false
+        schema:
+          type: string
+          pattern: ^\d{2}-\d{4}$
+        example: 12-2010
+      - name: brewed_after
+        in: query
+        description: 'Return beers first brewed after the supplied date. Format: `mm-yyyy` (e.g. `01-2015`).'
+        required: false
+        schema:
+          type: string
+          pattern: ^\d{2}-\d{4}$
+        example: 01-2015
+      responses:
+        '200':
+          description: Paginated array of beer recipes.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beer'
+        '400':
+          description: Validation error on one or more query parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /beers/{beerId}:
+    parameters:
+    - name: beerId
+      in: path
+      required: true
+      description: Beer identifier (integer >= 1).
+      schema:
+        type: integer
+        minimum: 1
+      example: 1
+    get:
+      operationId: getBeer
+      summary: Punk API Get Beer
+      description: Returns a single beer recipe by its integer id. The id range is roughly 1-325 (matching the 325 DIY Dog recipes in the dataset). Returns 404 when no beer matches the supplied id.
+      tags:
+      - Beers
+      responses:
+        '200':
+          description: Single beer recipe.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beer'
+        '400':
+          description: Validation error — beerId must be a positive integer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: No beer found matching the supplied id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /beers/random:
+    get:
+      operationId: getRandomBeer
+      summary: Punk API Get Random Beer
+      description: Returns a single random beer recipe sampled uniformly from the 325 DIY Dog entries. Useful for "beer of the day" demos and for sampling the shape of the dataset.
+      tags:
+      - Beers
+      responses:
+        '200':
+          description: A randomly selected beer recipe.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beer'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Method:
+      type: object
+      description: Brewing method — mash schedule, fermentation, and optional twist.
+      required:
+      - mash_temp
+      - fermentation
+      properties:
+        mash_temp:
+          type: array
+          description: One or more mash temperature steps.
+          items:
+            $ref: '#/components/schemas/MashStep'
+        fermentation:
+          type: object
+          required:
+          - temp
+          properties:
+            temp:
+              $ref: '#/components/schemas/Temperature'
+        twist:
+          type: string
+          nullable: true
+          description: Special-additions twist (e.g. dry-hop, fruit addition).
+          example: Coffee added after fermentation.
+    Malt:
+      type: object
+      description: A single malt addition.
+      required:
+      - name
+      - amount
+      properties:
+        name:
+          type: string
+          description: Malt name.
+          example: Extra Pale
+        amount:
+          $ref: '#/components/schemas/Measurement'
+    Hop:
+      type: object
+      description: A single hop addition.
+      required:
+      - name
+      - amount
+      - add
+      - attribute
+      properties:
+        name:
+          type: string
+          description: Hop name.
+          example: Simcoe
+        amount:
+          $ref: '#/components/schemas/Measurement'
+        add:
+          type: string
+          description: When the hop is added (e.g. start, middle, end, dry hop).
+          example: start
+        attribute:
+          type: string
+          description: Hop role (e.g. bitter, flavour, aroma).
+          example: bitter
+    Beer:
+      type: object
+      description: A BrewDog DIY Dog beer recipe.
+      required:
+      - id
+      - name
+      - tagline
+      - first_brewed
+      - description
+      - abv
+      - volume
+      - boil_volume
+      - method
+      - ingredients
+      properties:
+        id:
+          type: integer
+          description: Unique recipe identifier (1-325).
+          example: 1
+        name:
+          type: string
+          description: Beer name.
+          example: Buzz
+        tagline:
+          type: string
+          description: Short marketing tagline for the beer.
+          example: A Real Bitter Experience.
+        first_brewed:
+          type: string
+          description: First brewed date in `mm/yyyy` or `yyyy` format (matches the source PDF).
+          example: 09/2007
+        description:
+          type: string
+          description: Free-text recipe description.
+          example: A light, crisp and bitter IPA brewed with English and American hops.
+        image_url:
+          type: string
+          format: uri
+          nullable: true
+          description: URL to a bottle image hosted on punkapi.com (may be null).
+          example: https://images.punkapi.com/v2/keg.png
+        abv:
+          type: number
+          format: float
+          description: Alcohol by volume (%).
+          example: 4.5
+        ibu:
+          type: number
+          format: float
+          nullable: true
+          description: International Bitterness Units.
+          example: 60
+        target_fg:
+          type: number
+          format: float
+          nullable: true
+          description: Target final gravity.
+          example: 1010
+        target_og:
+          type: number
+          format: float
+          nullable: true
+          description: Target original gravity.
+          example: 1044
+        ebc:
+          type: number
+          format: float
+          nullable: true
+          description: European Brewery Convention colour.
+          example: 20
+        srm:
+          type: number
+          format: float
+          nullable: true
+          description: Standard Reference Method colour.
+          example: 10
+        ph:
+          type: number
+          format: float
+          nullable: true
+          description: Target wort pH.
+          example: 4.4
+        attenuation_level:
+          type: number
+          format: float
+          nullable: true
+          description: Yeast attenuation level (%).
+          example: 75
+        volume:
+          $ref: '#/components/schemas/Measurement'
+        boil_volume:
+          $ref: '#/components/schemas/Measurement'
+        method:
+          $ref: '#/components/schemas/Method'
+        ingredients:
+          $ref: '#/components/schemas/Ingredients'
+        food_pairing:
+          type: array
+          description: Suggested food pairings.
+          items:
+            type: string
+          example:
+          - Spicy chicken tikka masala
+          - Grilled chicken quesadilla
+          - Caramel toffee cake
+        brewers_tips:
+          type: string
+          nullable: true
+          description: Free-text brewer's tips for replicating the recipe.
+          example: The earthy and floral aromas from the hops can be overpowering.
+        contributed_by:
+          type: string
+          nullable: true
+          description: Attribution for the recipe transcription.
+          example: Sam Mason <samjbmason>
+    MashStep:
+      type: object
+      description: A single mash temperature step.
+      required:
+      - temp
+      properties:
+        temp:
+          $ref: '#/components/schemas/Temperature'
+        duration:
+          type: integer
+          nullable: true
+          description: Duration of the step in minutes.
+          example: 75
+    Measurement:
+      type: object
+      description: A scalar measurement with a unit (used for volume and boil_volume).
+      required:
+      - value
+      - unit
+      properties:
+        value:
+          type: number
+          format: float
+          description: Numeric measurement value.
+          example: 20
+        unit:
+          type: string
+          description: Measurement unit (e.g. litres, kilograms, grams, celsius).
+          example: litres
+    Temperature:
+      type: object
+      description: A temperature value with a unit.
+      required:
+      - value
+      - unit
+      properties:
+        value:
+          type: number
+          format: float
+          description: Temperature value.
+          example: 64
+        unit:
+          type: string
+          description: Temperature unit (typically `celsius`).
+          example: celsius
+    Error:
+      type: object
+      description: Punk API server error envelope.
+      required:
+      - statusCode
+      - message
+      properties:
+        statusCode:
+          type: integer
+          description: HTTP status code.
+          example: 404
+        error:
+          type: string
+          description: HTTP status text.
+          example: Not Found
+        message:
+          type: string
+          description: Human-readable error message.
+          example: No beer found that matches the ID 9999
+    Ingredients:
+      type: object
+      description: Recipe ingredients — malt bill, hop bill, and yeast strain.
+      required:
+      - malt
+      - hops
+      - yeast
+      properties:
+        malt:
+          type: array
+          description: Malt bill.
+          items:
+            $ref: '#/components/schemas/Malt'
+        hops:
+          type: array
+          description: Hop bill (additions across the boil and dry hops).
+          items:
+            $ref: '#/components/schemas/Hop'
+        yeast:
+          type: string
+          description: Yeast strain name.
+          example: Wyeast 1056 - American Ale
