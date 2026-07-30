@@ -1,4 +1,17 @@
 aid: punkapi
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/punkapi.png
 name: Punk API
 description: >-
   Punk API is a free, no-auth REST API exposing BrewDog's "DIY Dog" open-source beer recipe collection — 325 detailed
@@ -37,44 +50,32 @@ tags:
   - REST
   - Deprecated
 apis:
-  - name: Punk API — Beers
-    description: >-
-      Read-only REST surface over the 325 BrewDog DIY Dog beer recipes. Three operations — list (with
-      ABV/IBU/EBC/date/ingredient filters and page/per_page pagination up to 80 items), get-by-id, and random. No
-      authentication. The historical baseURL (api.punkapi.com/v2) is no longer reachable; self-host
-      sammdec/punkapi-server or run a mirror.
-    humanURL: https://punkapi.com
-    baseURL: https://api.punkapi.com/v2
-    tags:
-      - REST
-      - Beer
-      - Recipes
-      - Deprecated
-    properties:
-      - type: Documentation
-        url: https://punkapi.com
-      - type: OpenAPI
-        url: openapi/punkapi-openapi.yml
-      - type: JSONSchema
-        url: json-schema/punkapi-beer-schema.json
-        title: Beer Schema
-      - type: JSONSchema
-        url: json-schema/punkapi-error-schema.json
-        title: Error Schema
-      - type: JSONStructure
-        url: json-structure/punkapi-beer-structure.json
-        title: Beer Structure
-      - type: JSONStructure
-        url: json-structure/punkapi-error-structure.json
-        title: Error Structure
-      - type: JSONLD
-        url: json-ld/punkapi-context.jsonld
-      - type: Examples
-        url: examples/punkapi-beer-example.json
-        title: Beer Example
-      - type: Examples
-        url: examples/punkapi-error-example.json
-        title: Error Example
+- aid: punkapi:punkapi-beers-api
+  name: Punk API Beers API
+  description: BrewDog DIY Dog beer recipes — 325 entries
+  humanURL: https://punkapi.com
+  baseURL: https://api.punkapi.com/v2
+  tags:
+  - Beers
+  properties:
+  - type: OpenAPI
+    url: openapi/punkapi-beers-api-openapi.yml
+  - type: Documentation
+    url: https://punkapi.com
+  - type: JSONSchema
+    url: json-schema/punkapi-beer-schema.json
+  - type: JSONSchema
+    url: json-schema/punkapi-error-schema.json
+  - type: JSONStructure
+    url: json-structure/punkapi-beer-structure.json
+  - type: JSONStructure
+    url: json-structure/punkapi-error-structure.json
+  - type: JSONLD
+    url: json-ld/punkapi-context.jsonld
+  - type: Examples
+    url: examples/punkapi-beer-example.json
+  - type: Examples
+    url: examples/punkapi-error-example.json
 common:
   - type: AgenticAccess
     url: agentic-access/punkapi-agentic-access.yml
