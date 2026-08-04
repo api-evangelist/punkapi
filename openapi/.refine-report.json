@@ -1,0 +1,14 @@
+{
+  "provider": "punkapi",
+  "sources": [
+    "punkapi-beers-api-openapi.yml"
+  ],
+  "outputs": [
+    "punkapi-beers-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
