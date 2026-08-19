@@ -1,0 +1,598 @@
+{
+  "item": [
+    {
+      "id": "75c2f7ec-92d2-4451-90b4-40dac23ed5d0",
+      "name": "Beers",
+      "description": {
+        "content": "BrewDog DIY Dog beer recipes — 325 entries",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "746cf585-5626-466f-bdf6-01ade285b331",
+          "name": "Punk API List Beers",
+          "request": {
+            "name": "Punk API List Beers",
+            "description": {
+              "content": "Returns a paginated list of BrewDog beer recipes. Supports a rich family of recipe-oriented query filters — ABV / IBU / EBC ranges, brewed-before/after date ranges, and substring lookups on beer name, hops, malt, yeast, and food pairing. Underscores are used in place of spaces inside multi-word filter values (e.g. `hops=simcoe` or `food=spicy_food`). Pagination uses `page` (>=1) and `per_page` (1-80, default 25).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "beers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-indexed)."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "25",
+                  "description": "Number of items per page (1-80)."
+                },
+                {
+                  "disabled": false,
+                  "key": "abv_gt",
+                  "value": "<float>",
+                  "description": "Return beers with an ABV strictly greater than the supplied number."
+                },
+                {
+                  "disabled": false,
+                  "key": "abv_lt",
+                  "value": "<float>",
+                  "description": "Return beers with an ABV strictly less than the supplied number."
+                },
+                {
+                  "disabled": false,
+                  "key": "ibu_gt",
+                  "value": "<float>",
+                  "description": "Return beers with an IBU (bitterness) strictly greater than the supplied number."
+                },
+                {
+                  "disabled": false,
+                  "key": "ibu_lt",
+                  "value": "<float>",
+                  "description": "Return beers with an IBU strictly less than the supplied number."
+                },
+                {
+                  "disabled": false,
+                  "key": "ebc_gt",
+                  "value": "<float>",
+                  "description": "Return beers with an EBC (colour) strictly greater than the supplied number."
+                },
+                {
+                  "disabled": false,
+                  "key": "ebc_lt",
+                  "value": "<float>",
+                  "description": "Return beers with an EBC strictly less than the supplied number."
+                },
+                {
+                  "disabled": false,
+                  "key": "beer_name",
+                  "value": "<string>",
+                  "description": "Substring match on beer name. Use underscores in place of spaces (e.g. `beer_name=punk_ipa`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "hops",
+                  "value": "<string>",
+                  "description": "Substring match on hop name. Use underscores in place of spaces (e.g. `hops=simcoe`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "malt",
+                  "value": "<string>",
+                  "description": "Substring match on malt name. Use underscores in place of spaces (e.g. `malt=maris_otter`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "yeast",
+                  "value": "<string>",
+                  "description": "Substring match on yeast strain name. Use underscores for spaces."
+                },
+                {
+                  "disabled": false,
+                  "key": "food",
+                  "value": "<string>",
+                  "description": "Substring match against a beer's food-pairing list. Use underscores in place of spaces (e.g. `food=spicy_food`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "brewed_before",
+                  "value": "<string>",
+                  "description": "Return beers first brewed before the supplied date. Format: `mm-yyyy` (e.g. `12-2010`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "brewed_after",
+                  "value": "<string>",
+                  "description": "Return beers first brewed after the supplied date. Format: `mm-yyyy` (e.g. `01-2015`)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4fc2be20-24ca-4ce4-9aeb-db5337eaca96",
+              "name": "Paginated array of beer recipes.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "abv_gt",
+                      "value": "5"
+                    },
+                    {
+                      "key": "abv_lt",
+                      "value": "10"
+                    },
+                    {
+                      "key": "ibu_gt",
+                      "value": "40"
+                    },
+                    {
+                      "key": "ibu_lt",
+                      "value": "100"
+                    },
+                    {
+                      "key": "ebc_gt",
+                      "value": "20"
+                    },
+                    {
+                      "key": "ebc_lt",
+                      "value": "80"
+                    },
+                    {
+                      "key": "beer_name",
+                      "value": "punk_ipa"
+                    },
+                    {
+                      "key": "hops",
+                      "value": "simcoe"
+                    },
+                    {
+                      "key": "malt",
+                      "value": "maris_otter"
+                    },
+                    {
+                      "key": "yeast",
+                      "value": "wyeast"
+                    },
+                    {
+                      "key": "food",
+                      "value": "spicy_food"
+                    },
+                    {
+                      "key": "brewed_before",
+                      "value": "12-2010"
+                    },
+                    {
+                      "key": "brewed_after",
+                      "value": "01-2015"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Buzz\",\n    \"tagline\": \"A Real Bitter Experience.\",\n    \"first_brewed\": \"09/2007\",\n    \"description\": \"A light, crisp and bitter IPA brewed with English and American hops.\",\n    \"abv\": 4.5,\n    \"volume\": {\n      \"value\": 20,\n      \"unit\": \"litres\"\n    },\n    \"boil_volume\": {\n      \"value\": 20,\n      \"unit\": \"litres\"\n    },\n    \"method\": {\n      \"mash_temp\": [\n        {\n          \"temp\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"duration\": 75\n        },\n        {\n          \"temp\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"duration\": 75\n        }\n      ],\n      \"fermentation\": {\n        \"temp\": {\n          \"value\": 64,\n          \"unit\": \"celsius\"\n        }\n      },\n      \"twist\": \"Coffee added after fermentation.\"\n    },\n    \"ingredients\": {\n      \"malt\": [\n        {\n          \"name\": \"Extra Pale\",\n          \"amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"name\": \"Extra Pale\",\n          \"amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"hops\": [\n        {\n          \"name\": \"Simcoe\",\n          \"amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"add\": \"start\",\n          \"attribute\": \"bitter\"\n        },\n        {\n          \"name\": \"Simcoe\",\n          \"amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"add\": \"start\",\n          \"attribute\": \"bitter\"\n        }\n      ],\n      \"yeast\": \"Wyeast 1056 - American Ale\"\n    },\n    \"image_url\": \"https://images.punkapi.com/v2/keg.png\",\n    \"ibu\": 60,\n    \"target_fg\": 1010,\n    \"target_og\": 1044,\n    \"ebc\": 20,\n    \"srm\": 10,\n    \"ph\": 4.4,\n    \"attenuation_level\": 75,\n    \"food_pairing\": [\n      \"Spicy chicken tikka masala\",\n      \"Grilled chicken quesadilla\",\n      \"Caramel toffee cake\"\n    ],\n    \"brewers_tips\": \"The earthy and floral aromas from the hops can be overpowering.\",\n    \"contributed_by\": \"Sam Mason <samjbmason>\"\n  },\n  {\n    \"id\": 1,\n    \"name\": \"Buzz\",\n    \"tagline\": \"A Real Bitter Experience.\",\n    \"first_brewed\": \"09/2007\",\n    \"description\": \"A light, crisp and bitter IPA brewed with English and American hops.\",\n    \"abv\": 4.5,\n    \"volume\": {\n      \"value\": 20,\n      \"unit\": \"litres\"\n    },\n    \"boil_volume\": {\n      \"value\": 20,\n      \"unit\": \"litres\"\n    },\n    \"method\": {\n      \"mash_temp\": [\n        {\n          \"temp\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"duration\": 75\n        },\n        {\n          \"temp\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"duration\": 75\n        }\n      ],\n      \"fermentation\": {\n        \"temp\": {\n          \"value\": 64,\n          \"unit\": \"celsius\"\n        }\n      },\n      \"twist\": \"Coffee added after fermentation.\"\n    },\n    \"ingredients\": {\n      \"malt\": [\n        {\n          \"name\": \"Extra Pale\",\n          \"amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"name\": \"Extra Pale\",\n          \"amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"hops\": [\n        {\n          \"name\": \"Simcoe\",\n          \"amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"add\": \"start\",\n          \"attribute\": \"bitter\"\n        },\n        {\n          \"name\": \"Simcoe\",\n          \"amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"add\": \"start\",\n          \"attribute\": \"bitter\"\n        }\n      ],\n      \"yeast\": \"Wyeast 1056 - American Ale\"\n    },\n    \"image_url\": \"https://images.punkapi.com/v2/keg.png\",\n    \"ibu\": 60,\n    \"target_fg\": 1010,\n    \"target_og\": 1044,\n    \"ebc\": 20,\n    \"srm\": 10,\n    \"ph\": 4.4,\n    \"attenuation_level\": 75,\n    \"food_pairing\": [\n      \"Spicy chicken tikka masala\",\n      \"Grilled chicken quesadilla\",\n      \"Caramel toffee cake\"\n    ],\n    \"brewers_tips\": \"The earthy and floral aromas from the hops can be overpowering.\",\n    \"contributed_by\": \"Sam Mason <samjbmason>\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a60e349a-e6c2-4d78-81bb-e1d188c7d4c0",
+              "name": "Validation error on one or more query parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "abv_gt",
+                      "value": "5"
+                    },
+                    {
+                      "key": "abv_lt",
+                      "value": "10"
+                    },
+                    {
+                      "key": "ibu_gt",
+                      "value": "40"
+                    },
+                    {
+                      "key": "ibu_lt",
+                      "value": "100"
+                    },
+                    {
+                      "key": "ebc_gt",
+                      "value": "20"
+                    },
+                    {
+                      "key": "ebc_lt",
+                      "value": "80"
+                    },
+                    {
+                      "key": "beer_name",
+                      "value": "punk_ipa"
+                    },
+                    {
+                      "key": "hops",
+                      "value": "simcoe"
+                    },
+                    {
+                      "key": "malt",
+                      "value": "maris_otter"
+                    },
+                    {
+                      "key": "yeast",
+                      "value": "wyeast"
+                    },
+                    {
+                      "key": "food",
+                      "value": "spicy_food"
+                    },
+                    {
+                      "key": "brewed_before",
+                      "value": "12-2010"
+                    },
+                    {
+                      "key": "brewed_after",
+                      "value": "01-2015"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"message\": \"No beer found that matches the ID 9999\",\n  \"error\": \"Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3275aa33-8e83-4830-a411-65796be1ecc4",
+          "name": "Punk API Get Beer",
+          "request": {
+            "name": "Punk API Get Beer",
+            "description": {
+              "content": "Returns a single beer recipe by its integer id. The id range is roughly 1-325 (matching the 325 DIY Dog recipes in the dataset). Returns 404 when no beer matches the supplied id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "beers",
+                ":beerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "beerId",
+                  "description": "(Required) Beer identifier (integer >= 1)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d026db8a-e5fa-4d91-a689-ce3e3de938a4",
+              "name": "Single beer recipe.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beers",
+                    ":beerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "beerId",
+                      "description": "(Required) Beer identifier (integer >= 1)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Buzz\",\n  \"tagline\": \"A Real Bitter Experience.\",\n  \"first_brewed\": \"09/2007\",\n  \"description\": \"A light, crisp and bitter IPA brewed with English and American hops.\",\n  \"abv\": 4.5,\n  \"volume\": {\n    \"value\": 20,\n    \"unit\": \"litres\"\n  },\n  \"boil_volume\": {\n    \"value\": 20,\n    \"unit\": \"litres\"\n  },\n  \"method\": {\n    \"mash_temp\": [\n      {\n        \"temp\": {\n          \"value\": 64,\n          \"unit\": \"celsius\"\n        },\n        \"duration\": 75\n      },\n      {\n        \"temp\": {\n          \"value\": 64,\n          \"unit\": \"celsius\"\n        },\n        \"duration\": 75\n      }\n    ],\n    \"fermentation\": {\n      \"temp\": {\n        \"value\": 64,\n        \"unit\": \"celsius\"\n      }\n    },\n    \"twist\": \"Coffee added after fermentation.\"\n  },\n  \"ingredients\": {\n    \"malt\": [\n      {\n        \"name\": \"Extra Pale\",\n        \"amount\": {\n          \"value\": 20,\n          \"unit\": \"litres\"\n        }\n      },\n      {\n        \"name\": \"Extra Pale\",\n        \"amount\": {\n          \"value\": 20,\n          \"unit\": \"litres\"\n        }\n      }\n    ],\n    \"hops\": [\n      {\n        \"name\": \"Simcoe\",\n        \"amount\": {\n          \"value\": 20,\n          \"unit\": \"litres\"\n        },\n        \"add\": \"start\",\n        \"attribute\": \"bitter\"\n      },\n      {\n        \"name\": \"Simcoe\",\n        \"amount\": {\n          \"value\": 20,\n          \"unit\": \"litres\"\n        },\n        \"add\": \"start\",\n        \"attribute\": \"bitter\"\n      }\n    ],\n    \"yeast\": \"Wyeast 1056 - American Ale\"\n  },\n  \"image_url\": \"https://images.punkapi.com/v2/keg.png\",\n  \"ibu\": 60,\n  \"target_fg\": 1010,\n  \"target_og\": 1044,\n  \"ebc\": 20,\n  \"srm\": 10,\n  \"ph\": 4.4,\n  \"attenuation_level\": 75,\n  \"food_pairing\": [\n    \"Spicy chicken tikka masala\",\n    \"Grilled chicken quesadilla\",\n    \"Caramel toffee cake\"\n  ],\n  \"brewers_tips\": \"The earthy and floral aromas from the hops can be overpowering.\",\n  \"contributed_by\": \"Sam Mason <samjbmason>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d69fc9c1-d954-4a3b-80f6-6b922d8ee594",
+              "name": "Validation error — beerId must be a positive integer.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beers",
+                    ":beerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "beerId",
+                      "description": "(Required) Beer identifier (integer >= 1)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"message\": \"No beer found that matches the ID 9999\",\n  \"error\": \"Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1756fda5-4aff-4302-a23f-dc59292566af",
+              "name": "No beer found matching the supplied id.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beers",
+                    ":beerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "beerId",
+                      "description": "(Required) Beer identifier (integer >= 1)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"message\": \"No beer found that matches the ID 9999\",\n  \"error\": \"Not Found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3cdae27d-5072-4b0c-9898-1e7ef6c9eff6",
+          "name": "Punk API Get Random Beer",
+          "request": {
+            "name": "Punk API Get Random Beer",
+            "description": {
+              "content": "Returns a single random beer recipe sampled uniformly from the 325 DIY Dog entries. Useful for \"beer of the day\" demos and for sampling the shape of the dataset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "beers",
+                "random"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4cc3a244-4101-417a-854b-2428c35612e3",
+              "name": "A randomly selected beer recipe.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "beers",
+                    "random"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Buzz\",\n  \"tagline\": \"A Real Bitter Experience.\",\n  \"first_brewed\": \"09/2007\",\n  \"description\": \"A light, crisp and bitter IPA brewed with English and American hops.\",\n  \"abv\": 4.5,\n  \"volume\": {\n    \"value\": 20,\n    \"unit\": \"litres\"\n  },\n  \"boil_volume\": {\n    \"value\": 20,\n    \"unit\": \"litres\"\n  },\n  \"method\": {\n    \"mash_temp\": [\n      {\n        \"temp\": {\n          \"value\": 64,\n          \"unit\": \"celsius\"\n        },\n        \"duration\": 75\n      },\n      {\n        \"temp\": {\n          \"value\": 64,\n          \"unit\": \"celsius\"\n        },\n        \"duration\": 75\n      }\n    ],\n    \"fermentation\": {\n      \"temp\": {\n        \"value\": 64,\n        \"unit\": \"celsius\"\n      }\n    },\n    \"twist\": \"Coffee added after fermentation.\"\n  },\n  \"ingredients\": {\n    \"malt\": [\n      {\n        \"name\": \"Extra Pale\",\n        \"amount\": {\n          \"value\": 20,\n          \"unit\": \"litres\"\n        }\n      },\n      {\n        \"name\": \"Extra Pale\",\n        \"amount\": {\n          \"value\": 20,\n          \"unit\": \"litres\"\n        }\n      }\n    ],\n    \"hops\": [\n      {\n        \"name\": \"Simcoe\",\n        \"amount\": {\n          \"value\": 20,\n          \"unit\": \"litres\"\n        },\n        \"add\": \"start\",\n        \"attribute\": \"bitter\"\n      },\n      {\n        \"name\": \"Simcoe\",\n        \"amount\": {\n          \"value\": 20,\n          \"unit\": \"litres\"\n        },\n        \"add\": \"start\",\n        \"attribute\": \"bitter\"\n      }\n    ],\n    \"yeast\": \"Wyeast 1056 - American Ale\"\n  },\n  \"image_url\": \"https://images.punkapi.com/v2/keg.png\",\n  \"ibu\": 60,\n  \"target_fg\": 1010,\n  \"target_og\": 1044,\n  \"ebc\": 20,\n  \"srm\": 10,\n  \"ph\": 4.4,\n  \"attenuation_level\": 75,\n  \"food_pairing\": [\n    \"Spicy chicken tikka masala\",\n    \"Grilled chicken quesadilla\",\n    \"Caramel toffee cake\"\n  ],\n  \"brewers_tips\": \"The earthy and floral aromas from the hops can be overpowering.\",\n  \"contributed_by\": \"Sam Mason <samjbmason>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.punkapi.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a04fc08c-2668-4d30-b95b-e80c3a6b3e62",
+    "name": "Punk API — Brewdog DIY Dog Beer Recipes Beers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Punk API is a free, no-auth REST API that exposes BrewDog's DIY Dog open-source beer recipe collection — 325 detailed homebrew recipes crowdsourced from the BrewDog DIY Dog PDF. The v2 surface (`api.punkapi.com/v2`) historically supported three endpoints: list beers (with rich query filtering), get a beer by id, and get a random beer. Each beer carries a full recipe: ABV, IBU, EBC/SRM colour, target gravity, mash temperature schedule, fermentation temperature, twist, malt and hop bills, yeast, food pairings, brewer's tips, and contributor attribution. The public `api.punkapi.com` endpoint was sunset by BrewDog in 2023 and the source repositories (sammdec/punkapi-db, sammdec/punkapi-server) were archived on 2023-06-28. The dataset remains available via the `punkapi-db` npm package and via community-hosted mirrors that re-deploy `punkapi-server` against the original `data.json` file.\n\nContact Support:\n Name: Sam Mason (sammdec / samjbmason)",
+      "type": "text/plain"
+    }
+  }
+}
