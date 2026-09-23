@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Punk API — Brewdog DIY Dog Beer Recipes Beers API
-  description: 'Punk API is a free, no-auth REST API that exposes BrewDog''s DIY Dog open-source beer recipe collection — 325 detailed homebrew recipes crowdsourced from the BrewDog DIY Dog PDF. The v2 surface (`api.punkapi.com/v2`) historically supported three endpoints: list beers (with rich query filtering), get a beer by id, and get a random beer. Each beer carries a full recipe: ABV, IBU, EBC/SRM colour, target gravity, mash temperature schedule, fermentation temperature, twist, malt and hop bills, yeast, food pairings, brewer''s tips, and contributor attribution. The public `api.punkapi.com` endpoint was sunset by BrewDog in 2023 and the source repositories (sammdec/punkapi-db, sammdec/punkapi-server) were archived on 2023-06-28. The dataset remains available via the `punkapi-db` npm package and via community-hosted mirrors that re-deploy `punkapi-server` against the original `data.json` file.'
+  description: Punk API is a free, no-auth REST API that exposes BrewDog's DIY Dog open-source beer recipe collection — 325 detailed homebrew recipes crowdsourced from the BrewDog DIY Dog PDF.
   version: 2.0.0
   contact:
     name: Sam Mason (sammdec / samjbmason)
@@ -229,6 +229,22 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Temperature:
+      type: object
+      description: A temperature value with a unit.
+      required:
+      - value
+      - unit
+      properties:
+        value:
+          type: number
+          format: float
+          description: Temperature value.
+          example: 64
+        unit:
+          type: string
+          description: Temperature unit (typically `celsius`).
+          example: celsius
     Method:
       type: object
       description: Brewing method — mash schedule, fermentation, and optional twist.
@@ -249,23 +265,27 @@ components:
             temp:
               $ref: '#/components/schemas/Temperature'
         twist:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Special-additions twist (e.g. dry-hop, fruit addition).
           example: Coffee added after fermentation.
-    Malt:
+    Measurement:
       type: object
-      description: A single malt addition.
+      description: A scalar measurement with a unit (used for volume and boil_volume).
       required:
-      - name
-      - amount
+      - value
+      - unit
       properties:
-        name:
+        value:
+          type: number
+          format: float
+          description: Numeric measurement value.
+          example: 20
+        unit:
           type: string
-          description: Malt name.
-          example: Extra Pale
-        amount:
-          $ref: '#/components/schemas/Measurement'
+          description: Measurement unit (e.g. litres, kilograms, grams, celsius).
+          example: litres
     Hop:
       type: object
       description: A single hop addition.
@@ -289,6 +309,33 @@ components:
           type: string
           description: Hop role (e.g. bitter, flavour, aroma).
           example: bitter
+    Malt:
+      type: object
+      description: A single malt addition.
+      required:
+      - name
+      - amount
+      properties:
+        name:
+          type: string
+          description: Malt name.
+          example: Extra Pale
+        amount:
+          $ref: '#/components/schemas/Measurement'
+    MashStep:
+      type: object
+      description: A single mash temperature step.
+      required:
+      - temp
+      properties:
+        temp:
+          $ref: '#/components/schemas/Temperature'
+        duration:
+          type:
+          - integer
+          - 'null'
+          description: Duration of the step in minutes.
+          example: 75
     Beer:
       type: object
       description: A BrewDog DIY Dog beer recipe.
@@ -325,9 +372,10 @@ components:
           description: Free-text recipe description.
           example: A light, crisp and bitter IPA brewed with English and American hops.
         image_url:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uri
-          nullable: true
           description: URL to a bottle image hosted on punkapi.com (may be null).
           example: https://images.punkapi.com/v2/keg.png
         abv:
@@ -336,45 +384,52 @@ components:
           description: Alcohol by volume (%).
           example: 4.5
         ibu:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
           description: International Bitterness Units.
           example: 60
         target_fg:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
           description: Target final gravity.
           example: 1010
         target_og:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
           description: Target original gravity.
           example: 1044
         ebc:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
           description: European Brewery Convention colour.
           example: 20
         srm:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
           description: Standard Reference Method colour.
           example: 10
         ph:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
           description: Target wort pH.
           example: 4.4
         attenuation_level:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
           description: Yeast attenuation level (%).
           example: 75
         volume:
@@ -395,60 +450,17 @@ components:
           - Grilled chicken quesadilla
           - Caramel toffee cake
         brewers_tips:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Free-text brewer's tips for replicating the recipe.
           example: The earthy and floral aromas from the hops can be overpowering.
         contributed_by:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Attribution for the recipe transcription.
           example: Sam Mason <samjbmason>
-    MashStep:
-      type: object
-      description: A single mash temperature step.
-      required:
-      - temp
-      properties:
-        temp:
-          $ref: '#/components/schemas/Temperature'
-        duration:
-          type: integer
-          nullable: true
-          description: Duration of the step in minutes.
-          example: 75
-    Measurement:
-      type: object
-      description: A scalar measurement with a unit (used for volume and boil_volume).
-      required:
-      - value
-      - unit
-      properties:
-        value:
-          type: number
-          format: float
-          description: Numeric measurement value.
-          example: 20
-        unit:
-          type: string
-          description: Measurement unit (e.g. litres, kilograms, grams, celsius).
-          example: litres
-    Temperature:
-      type: object
-      description: A temperature value with a unit.
-      required:
-      - value
-      - unit
-      properties:
-        value:
-          type: number
-          format: float
-          description: Temperature value.
-          example: 64
-        unit:
-          type: string
-          description: Temperature unit (typically `celsius`).
-          example: celsius
     Error:
       type: object
       description: Punk API server error envelope.
