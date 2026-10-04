@@ -229,6 +229,38 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Malt:
+      type: object
+      description: A single malt addition.
+      required:
+      - name
+      - amount
+      properties:
+        name:
+          type: string
+          description: Malt name.
+          example: Extra Pale
+        amount:
+          $ref: '#/components/schemas/Measurement'
+    Error:
+      type: object
+      description: Punk API server error envelope.
+      required:
+      - statusCode
+      - message
+      properties:
+        statusCode:
+          type: integer
+          description: HTTP status code.
+          example: 404
+        error:
+          type: string
+          description: HTTP status text.
+          example: Not Found
+        message:
+          type: string
+          description: Human-readable error message.
+          example: No beer found that matches the ID 9999
     Temperature:
       type: object
       description: A temperature value with a unit.
@@ -245,6 +277,22 @@ components:
           type: string
           description: Temperature unit (typically `celsius`).
           example: celsius
+    Measurement:
+      type: object
+      description: A scalar measurement with a unit (used for volume and boil_volume).
+      required:
+      - value
+      - unit
+      properties:
+        value:
+          type: number
+          format: float
+          description: Numeric measurement value.
+          example: 20
+        unit:
+          type: string
+          description: Measurement unit (e.g. litres, kilograms, grams, celsius).
+          example: litres
     Method:
       type: object
       description: Brewing method — mash schedule, fermentation, and optional twist.
@@ -270,22 +318,20 @@ components:
           - 'null'
           description: Special-additions twist (e.g. dry-hop, fruit addition).
           example: Coffee added after fermentation.
-    Measurement:
+    MashStep:
       type: object
-      description: A scalar measurement with a unit (used for volume and boil_volume).
+      description: A single mash temperature step.
       required:
-      - value
-      - unit
+      - temp
       properties:
-        value:
-          type: number
-          format: float
-          description: Numeric measurement value.
-          example: 20
-        unit:
-          type: string
-          description: Measurement unit (e.g. litres, kilograms, grams, celsius).
-          example: litres
+        temp:
+          $ref: '#/components/schemas/Temperature'
+        duration:
+          type:
+          - integer
+          - 'null'
+          description: Duration of the step in minutes.
+          example: 75
     Hop:
       type: object
       description: A single hop addition.
@@ -309,33 +355,6 @@ components:
           type: string
           description: Hop role (e.g. bitter, flavour, aroma).
           example: bitter
-    Malt:
-      type: object
-      description: A single malt addition.
-      required:
-      - name
-      - amount
-      properties:
-        name:
-          type: string
-          description: Malt name.
-          example: Extra Pale
-        amount:
-          $ref: '#/components/schemas/Measurement'
-    MashStep:
-      type: object
-      description: A single mash temperature step.
-      required:
-      - temp
-      properties:
-        temp:
-          $ref: '#/components/schemas/Temperature'
-        duration:
-          type:
-          - integer
-          - 'null'
-          description: Duration of the step in minutes.
-          example: 75
     Beer:
       type: object
       description: A BrewDog DIY Dog beer recipe.
@@ -461,25 +480,6 @@ components:
           - 'null'
           description: Attribution for the recipe transcription.
           example: Sam Mason <samjbmason>
-    Error:
-      type: object
-      description: Punk API server error envelope.
-      required:
-      - statusCode
-      - message
-      properties:
-        statusCode:
-          type: integer
-          description: HTTP status code.
-          example: 404
-        error:
-          type: string
-          description: HTTP status text.
-          example: Not Found
-        message:
-          type: string
-          description: Human-readable error message.
-          example: No beer found that matches the ID 9999
     Ingredients:
       type: object
       description: Recipe ingredients — malt bill, hop bill, and yeast strain.
