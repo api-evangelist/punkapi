@@ -79,3 +79,21 @@ plans:
       - name: No rate limits documented or enforced
       - name: MIT-licensed source code on GitHub (sammdec/punkapi, sammdec/punkapi-server)
       - name: Recipe dataset distributed via npm as `punkapi-db`
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units:
+  - negotiated
+  - request
+  plans:
+  - name: Free (historical)
+    access: freemium
+    model: subscription
+    model_how: derived
+    units:
+    - negotiated
+    - request
+    periods:
+    - per-use
