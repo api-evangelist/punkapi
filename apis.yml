@@ -53,12 +53,12 @@ x-replacement: >-
   Self-host sammdec/punkapi-server against the `punkapi-db` npm dataset, or point clients at a community-maintained
   mirror.
 tags:
-  - Food And Drink
+  - Food and Beverage
   - Beer
   - BrewDog
   - DIY Dog
   - Recipes
-  - Open-Source
+  - Open Source
   - Public APIs
   - REST
   - Deprecated
