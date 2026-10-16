@@ -46,7 +46,7 @@ x-category: Food & Drink
 x-type: opensource
 x-tier: 3
 x-tier-reason: free-deprecated-public-service-with-archived-open-source-source-code
-x-status: deprecated
+x-status: defunct
 x-deprecated-on: '2023'
 x-archived-on: '2023-06-28'
 x-replacement: >-
@@ -62,6 +62,7 @@ tags:
   - Public APIs
   - REST
   - Deprecated
+  - Defunct
 tags_raw:
   - Food And Drink
   - Beer
@@ -72,6 +73,8 @@ tags_raw:
   - Public APIs
   - REST
   - Deprecated
+  - Open-Source
+  - Defunct
 apis:
 - aid: punkapi:punkapi-beers-api
   name: Punk API Beers API
@@ -224,10 +227,5 @@ common:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
-x-lifecycle:
-  state: shuttered
-  reason: domain-does-not-resolve
-  observed: '2026-09-27'
-  detail: >-
-    The company's own domain returned no A or AAAA record when probed. This is an observation about the domain, not a request from the company.
-  indexed: false
+x-status-source: https://github.com/sammdec/punkapi-site/issues/11
+x-status-note: 'Punk API shut down (the public service ended in 2024; source archived 2023-06-28). punkapi.com and api.punkapi.com have no DNS (probe-parked-providers, 2026-09-23). A hobby API that lapsed, not a fabricated one. roadmap#589 / #597'

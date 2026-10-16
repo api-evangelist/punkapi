@@ -229,19 +229,97 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Malt:
+    Measurement:
       type: object
-      description: A single malt addition.
+      description: A scalar measurement with a unit (used for volume and boil_volume).
+      required:
+      - value
+      - unit
+      properties:
+        value:
+          type: number
+          format: float
+          description: Numeric measurement value.
+          example: 20
+        unit:
+          type: string
+          description: Measurement unit (e.g. litres, kilograms, grams, celsius).
+          example: litres
+    Temperature:
+      type: object
+      description: A temperature value with a unit.
+      required:
+      - value
+      - unit
+      properties:
+        value:
+          type: number
+          format: float
+          description: Temperature value.
+          example: 64
+        unit:
+          type: string
+          description: Temperature unit (typically `celsius`).
+          example: celsius
+    MashStep:
+      type: object
+      description: A single mash temperature step.
+      required:
+      - temp
+      properties:
+        temp:
+          $ref: '#/components/schemas/Temperature'
+        duration:
+          type:
+          - integer
+          - 'null'
+          description: Duration of the step in minutes.
+          example: 75
+    Ingredients:
+      type: object
+      description: Recipe ingredients — malt bill, hop bill, and yeast strain.
+      required:
+      - malt
+      - hops
+      - yeast
+      properties:
+        malt:
+          type: array
+          description: Malt bill.
+          items:
+            $ref: '#/components/schemas/Malt'
+        hops:
+          type: array
+          description: Hop bill (additions across the boil and dry hops).
+          items:
+            $ref: '#/components/schemas/Hop'
+        yeast:
+          type: string
+          description: Yeast strain name.
+          example: Wyeast 1056 - American Ale
+    Hop:
+      type: object
+      description: A single hop addition.
       required:
       - name
       - amount
+      - add
+      - attribute
       properties:
         name:
           type: string
-          description: Malt name.
-          example: Extra Pale
+          description: Hop name.
+          example: Simcoe
         amount:
           $ref: '#/components/schemas/Measurement'
+        add:
+          type: string
+          description: When the hop is added (e.g. start, middle, end, dry hop).
+          example: start
+        attribute:
+          type: string
+          description: Hop role (e.g. bitter, flavour, aroma).
+          example: bitter
     Error:
       type: object
       description: Punk API server error envelope.
@@ -261,38 +339,19 @@ components:
           type: string
           description: Human-readable error message.
           example: No beer found that matches the ID 9999
-    Temperature:
+    Malt:
       type: object
-      description: A temperature value with a unit.
+      description: A single malt addition.
       required:
-      - value
-      - unit
+      - name
+      - amount
       properties:
-        value:
-          type: number
-          format: float
-          description: Temperature value.
-          example: 64
-        unit:
+        name:
           type: string
-          description: Temperature unit (typically `celsius`).
-          example: celsius
-    Measurement:
-      type: object
-      description: A scalar measurement with a unit (used for volume and boil_volume).
-      required:
-      - value
-      - unit
-      properties:
-        value:
-          type: number
-          format: float
-          description: Numeric measurement value.
-          example: 20
-        unit:
-          type: string
-          description: Measurement unit (e.g. litres, kilograms, grams, celsius).
-          example: litres
+          description: Malt name.
+          example: Extra Pale
+        amount:
+          $ref: '#/components/schemas/Measurement'
     Method:
       type: object
       description: Brewing method — mash schedule, fermentation, and optional twist.
@@ -318,43 +377,6 @@ components:
           - 'null'
           description: Special-additions twist (e.g. dry-hop, fruit addition).
           example: Coffee added after fermentation.
-    MashStep:
-      type: object
-      description: A single mash temperature step.
-      required:
-      - temp
-      properties:
-        temp:
-          $ref: '#/components/schemas/Temperature'
-        duration:
-          type:
-          - integer
-          - 'null'
-          description: Duration of the step in minutes.
-          example: 75
-    Hop:
-      type: object
-      description: A single hop addition.
-      required:
-      - name
-      - amount
-      - add
-      - attribute
-      properties:
-        name:
-          type: string
-          description: Hop name.
-          example: Simcoe
-        amount:
-          $ref: '#/components/schemas/Measurement'
-        add:
-          type: string
-          description: When the hop is added (e.g. start, middle, end, dry hop).
-          example: start
-        attribute:
-          type: string
-          description: Hop role (e.g. bitter, flavour, aroma).
-          example: bitter
     Beer:
       type: object
       description: A BrewDog DIY Dog beer recipe.
@@ -480,25 +502,3 @@ components:
           - 'null'
           description: Attribution for the recipe transcription.
           example: Sam Mason <samjbmason>
-    Ingredients:
-      type: object
-      description: Recipe ingredients — malt bill, hop bill, and yeast strain.
-      required:
-      - malt
-      - hops
-      - yeast
-      properties:
-        malt:
-          type: array
-          description: Malt bill.
-          items:
-            $ref: '#/components/schemas/Malt'
-        hops:
-          type: array
-          description: Hop bill (additions across the boil and dry hops).
-          items:
-            $ref: '#/components/schemas/Hop'
-        yeast:
-          type: string
-          description: Yeast strain name.
-          example: Wyeast 1056 - American Ale
