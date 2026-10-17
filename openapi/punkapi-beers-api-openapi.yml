@@ -229,74 +229,25 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Measurement:
+    Error:
       type: object
-      description: A scalar measurement with a unit (used for volume and boil_volume).
+      description: Punk API server error envelope.
       required:
-      - value
-      - unit
+      - statusCode
+      - message
       properties:
-        value:
-          type: number
-          format: float
-          description: Numeric measurement value.
-          example: 20
-        unit:
+        statusCode:
+          type: integer
+          description: HTTP status code.
+          example: 404
+        error:
           type: string
-          description: Measurement unit (e.g. litres, kilograms, grams, celsius).
-          example: litres
-    Temperature:
-      type: object
-      description: A temperature value with a unit.
-      required:
-      - value
-      - unit
-      properties:
-        value:
-          type: number
-          format: float
-          description: Temperature value.
-          example: 64
-        unit:
+          description: HTTP status text.
+          example: Not Found
+        message:
           type: string
-          description: Temperature unit (typically `celsius`).
-          example: celsius
-    MashStep:
-      type: object
-      description: A single mash temperature step.
-      required:
-      - temp
-      properties:
-        temp:
-          $ref: '#/components/schemas/Temperature'
-        duration:
-          type:
-          - integer
-          - 'null'
-          description: Duration of the step in minutes.
-          example: 75
-    Ingredients:
-      type: object
-      description: Recipe ingredients — malt bill, hop bill, and yeast strain.
-      required:
-      - malt
-      - hops
-      - yeast
-      properties:
-        malt:
-          type: array
-          description: Malt bill.
-          items:
-            $ref: '#/components/schemas/Malt'
-        hops:
-          type: array
-          description: Hop bill (additions across the boil and dry hops).
-          items:
-            $ref: '#/components/schemas/Hop'
-        yeast:
-          type: string
-          description: Yeast strain name.
-          example: Wyeast 1056 - American Ale
+          description: Human-readable error message.
+          example: No beer found that matches the ID 9999
     Hop:
       type: object
       description: A single hop addition.
@@ -320,63 +271,36 @@ components:
           type: string
           description: Hop role (e.g. bitter, flavour, aroma).
           example: bitter
-    Error:
+    MashStep:
       type: object
-      description: Punk API server error envelope.
+      description: A single mash temperature step.
       required:
-      - statusCode
-      - message
+      - temp
       properties:
-        statusCode:
-          type: integer
-          description: HTTP status code.
-          example: 404
-        error:
-          type: string
-          description: HTTP status text.
-          example: Not Found
-        message:
-          type: string
-          description: Human-readable error message.
-          example: No beer found that matches the ID 9999
-    Malt:
-      type: object
-      description: A single malt addition.
-      required:
-      - name
-      - amount
-      properties:
-        name:
-          type: string
-          description: Malt name.
-          example: Extra Pale
-        amount:
-          $ref: '#/components/schemas/Measurement'
-    Method:
-      type: object
-      description: Brewing method — mash schedule, fermentation, and optional twist.
-      required:
-      - mash_temp
-      - fermentation
-      properties:
-        mash_temp:
-          type: array
-          description: One or more mash temperature steps.
-          items:
-            $ref: '#/components/schemas/MashStep'
-        fermentation:
-          type: object
-          required:
-          - temp
-          properties:
-            temp:
-              $ref: '#/components/schemas/Temperature'
-        twist:
+        temp:
+          $ref: '#/components/schemas/Temperature'
+        duration:
           type:
-          - string
+          - integer
           - 'null'
-          description: Special-additions twist (e.g. dry-hop, fruit addition).
-          example: Coffee added after fermentation.
+          description: Duration of the step in minutes.
+          example: 75
+    Temperature:
+      type: object
+      description: A temperature value with a unit.
+      required:
+      - value
+      - unit
+      properties:
+        value:
+          type: number
+          format: float
+          description: Temperature value.
+          example: 64
+        unit:
+          type: string
+          description: Temperature unit (typically `celsius`).
+          example: celsius
     Beer:
       type: object
       description: A BrewDog DIY Dog beer recipe.
@@ -502,3 +426,79 @@ components:
           - 'null'
           description: Attribution for the recipe transcription.
           example: Sam Mason <samjbmason>
+    Method:
+      type: object
+      description: Brewing method — mash schedule, fermentation, and optional twist.
+      required:
+      - mash_temp
+      - fermentation
+      properties:
+        mash_temp:
+          type: array
+          description: One or more mash temperature steps.
+          items:
+            $ref: '#/components/schemas/MashStep'
+        fermentation:
+          type: object
+          required:
+          - temp
+          properties:
+            temp:
+              $ref: '#/components/schemas/Temperature'
+        twist:
+          type:
+          - string
+          - 'null'
+          description: Special-additions twist (e.g. dry-hop, fruit addition).
+          example: Coffee added after fermentation.
+    Measurement:
+      type: object
+      description: A scalar measurement with a unit (used for volume and boil_volume).
+      required:
+      - value
+      - unit
+      properties:
+        value:
+          type: number
+          format: float
+          description: Numeric measurement value.
+          example: 20
+        unit:
+          type: string
+          description: Measurement unit (e.g. litres, kilograms, grams, celsius).
+          example: litres
+    Ingredients:
+      type: object
+      description: Recipe ingredients — malt bill, hop bill, and yeast strain.
+      required:
+      - malt
+      - hops
+      - yeast
+      properties:
+        malt:
+          type: array
+          description: Malt bill.
+          items:
+            $ref: '#/components/schemas/Malt'
+        hops:
+          type: array
+          description: Hop bill (additions across the boil and dry hops).
+          items:
+            $ref: '#/components/schemas/Hop'
+        yeast:
+          type: string
+          description: Yeast strain name.
+          example: Wyeast 1056 - American Ale
+    Malt:
+      type: object
+      description: A single malt addition.
+      required:
+      - name
+      - amount
+      properties:
+        name:
+          type: string
+          description: Malt name.
+          example: Extra Pale
+        amount:
+          $ref: '#/components/schemas/Measurement'
