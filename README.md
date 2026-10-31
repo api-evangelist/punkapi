@@ -1,4 +1,4 @@
-# Punk API (punkapi)
+# Punk API
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,83 +64,114 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
+> **No longer operating.** This company or product has shut down, been discontinued, or been deprecated. This profile is kept as a historical record and is not maintained or rated.
+
 Punk API is a free, no-auth REST API exposing BrewDog's "DIY Dog" open-source beer recipe collection — 325 detailed homebrew recipes crowdsourced and transcribed from the BrewDog DIY Dog PDF. The v2 surface (api.punkapi.com/v2) offered three read-only endpoints: list beers (with rich query filtering on ABV, IBU, EBC, brew date, beer name, hops, malt, yeast, and food pairing), get a beer by id, and get a random beer. Each beer carries a full recipe — ABV, IBU, EBC/SRM colour, target gravities, mash temperature schedule, fermentation temperature, twist, malt and hop bills, yeast strain, food pairings, brewer's tips, and contributor attribution. STATUS — DEPRECATED. BrewDog decommissioned the public api.punkapi.com endpoint in 2023 and the source repositories (sammdec/punkapi-db, sammdec/punkapi-server) were archived on 2023-06-28. The dataset and server source remain MIT-licensed and available; community-hosted mirrors and the `punkapi-db` npm package preserve the contract documented here.
 
-**APIs.json:** [https://punkapi.com](https://punkapi.com)
+**Areas:** Food and Beverage · Beer · BrewDog · DIY Dog · Recipes · Open Source · Public APIs · REST · Deprecated · Defunct
 
-## Tags
+## Punk API on APIs.io (historical record)
 
-- Food And Drink
-- Beer
-- BrewDog
-- DIY Dog
-- Recipes
-- Open Source
-- Public APIs
-- REST
-- Deprecated
+Everything profiled for Punk API is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/punkapi/](https://apis.io/providers/punkapi/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (1)
 
-- **Created:** 2026-05-28
-- **Modified:** 2026-05-29
+- [Punk API Beers API](https://apis.io/apis/punkapi/punkapi-beers-api/) — BrewDog DIY Dog beer recipes — 325 entries
 
-## APIs
+### Published properties
 
-### Punk API — Beers
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Read-only REST surface over the 325 BrewDog DIY Dog beer recipes. Three operations — list (with ABV/IBU/EBC/date/ingredient filters and page/per_page pagination up to 80 items), get-by-id, and random. No authentication. The historical baseURL (api.punkapi.com/v2) is no longer reachable; self-host sammdec/punkapi-server or run a mirror.
+#### Agentic access (1)
 
-- **Human URL:** [https://punkapi.com](https://punkapi.com)
-- **Base URL:** `https://api.punkapi.com/v2`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Punkapi Agentic Access](https://apis.io/agentic-access/punkapi/punkapi-agentic-access/)
 
-- REST
-- Beer
-- Recipes
-- Deprecated
+#### JSON Schema (2)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://punkapi.com)
-- [OpenAPI](openapi/punkapi-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/punkapi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/punkapi.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/punkapi-beer-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/punkapi-error-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/punkapi-beer-structure.json)
-- [JSON Structure](json-structure/punkapi-error-structure.json)
-- [JSON-LD](json-ld/punkapi-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Example](examples/punkapi-beer-example.json)
-- [Example](examples/punkapi-error-example.json)
+- [Beer](https://apis.io/schemas/punkapi/punkapi-beer/)
+- [Error](https://apis.io/schemas/punkapi/punkapi-error/)
 
-## Common Properties
+#### JSON Structure (2)
+
+Data models expressed in JSON Structure.
+
+- [Punkapi Beer Structure](https://apis.io/json-structure/punkapi/punkapi-beer-structure/)
+- [Punkapi Error Structure](https://apis.io/json-structure/punkapi/punkapi-error-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Punkapi Context](https://apis.io/jsonld/punkapi/punkapi-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Punkapi Vocabulary](https://apis.io/vocabularies/punkapi/punkapi-vocabulary/)
+
+#### Examples (2)
+
+Example requests and responses.
+
+- [Punkapi Beer Example](https://apis.io/examples/punkapi/punkapi-beer-example/)
+- [Punkapi Error Example](https://apis.io/examples/punkapi/punkapi-error-example/)
+
+#### Collections (2)
+
+Postman and Open Collection request collections.
+
+- [Punk API — Brewdog DIY Dog Beer Recipes](https://apis.io/collections/punkapi/open-punkapi/)
+- [Punk API — Brewdog DIY Dog Beer Recipes Beers API](https://apis.io/collections/punkapi/open-punkapi-beers-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Punk API — jsonschema rules](https://apis.io/rules/punkapi/punkapi-jsonschema-spectral-rules/)
+- [Punk API API Rules](https://apis.io/rules/punkapi/punkapi-rules/)
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Punkapi Domain Security](https://apis.io/security/punkapi/punkapi-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Punkapi Plans Pricing](https://apis.io/plans/punkapi/punkapi-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Punkapi Rate Limits](https://apis.io/rate-limits/punkapi/punkapi-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://punkapi.com)
-- [GitHub Repository](https://github.com/sammdec/punkapi)
-- [GitHub Repository](https://github.com/sammdec/punkapi-server)
-- [GitHub Organization](https://github.com/sammdec)
-- [SDK](https://www.npmjs.com/package/punkapi-db)
-- [SDK](https://github.com/apfohl/punkapi)
-- [SDK](https://github.com/samjbmason/punkapi-ruby)
-- [SDK](https://github.com/billythekid/PunkApi)
-- [SDK](https://github.com/mikefrancis/brewdog.js)
-- [SDK](https://github.com/Oni-zerone/PunkAPI)
-- [SDK](https://github.com/yoohahn/VueDogs-API)
-- [SDK](https://hub.docker.com/r/yoohahn/brewdog-recipe)
-- [SDK](https://github.com/phillc73/brewdogr)
-- [Public APIs Listing](https://github.com/public-apis/public-apis)
-- [Plans](plans/punkapi-plans-pricing.yml)
-- [Rate Limits](rate-limits/punkapi-rate-limits.yml)
-- [Spectral Rules](rules/punkapi-rules.yml)
-- [Vocabulary](vocabulary/punkapi-vocabulary.yml)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [Solutions](undefined)
+- [GitHub](https://github.com/sammdec)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Not rated** — this company is recorded as no longer operating, so no score is published. If it is in fact operating, say so on this repository and it will be re-profiled.
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Punk API: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/punkapi/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
